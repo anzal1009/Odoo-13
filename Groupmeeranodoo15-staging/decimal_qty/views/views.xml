@@ -1,0 +1,13 @@
+<odoo>
+  <data>
+     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+       <xpath expr="//span[@t-field='line.quantity']" position="replace">
+
+                 <span t-field="line.quantity" t-options='{"precision": 3}'/>
+<!--            <span t-esc="'{0:,.3f}'.format(float(line.quantity))"/>-->
+       </xpath>
+     </template>
+
+
+  </data>
+</odoo>

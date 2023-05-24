@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record model="ir.rule" id="mrp_indent_comp_rule">
+            <field name="name">MRP indent multi-company</field>
+            <field name="model_id" ref="model_mrp_indent"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="mrp_indent_product_lines_comp_rule">
+            <field name="name">MRP indent product lines multi-company</field>
+            <field name="model_id" ref="model_mrp_indent_product_lines"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="group_mrp_indent_manager" model="res.groups">
+            <field name="name">MO Indent Approver</field>
+<!--            <field name="implied_ids" eval="[(4, ref('stock.group_stock_manager'))]"/>-->
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

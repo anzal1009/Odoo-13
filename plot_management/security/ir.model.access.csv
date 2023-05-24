@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plot_enquiry,access.plot.enquiry,model_plot_enquiry,,1,1,1,1
+access_plot_customer,access.plot.customer,model_plot_customer,,1,1,1,1

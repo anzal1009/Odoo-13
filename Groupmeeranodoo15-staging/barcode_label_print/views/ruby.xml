@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="barcode_label4_product_view">
+		<t t-foreach="quantity.items()" t-as="barcode_and_qty_by_product">
+                <t t-set="product" t-value="barcode_and_qty_by_product[0]"/>
+                         <t t-set="serials" t-value="product.product_id.serial_no"/>
+                <t t-foreach="barcode_and_qty_by_product[1]" t-as="barcode_and_qty">
+                    <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                    <t t-foreach="range(barcode_and_qty[1])" t-as="qty">
+                            <t t-set="barcode_sl" t-value="product.product_id.suffix+str(serials)"/>
+                        <t t-if="product.manual_print=='manual'">
+                             <t t-set="barcode_sl" t-value="product.serial_no"/>
+                        </t>
+                        <t t-translation="off">
+~n|
+~L|
+D11|
+H15|
+FB+|
+C0005|
+191100305660166<t t-esc="product.product_id.name"/>|
+191100305360166<t t-esc="product.product_id.label_category.name"/>|
+191100305060166<t t-esc="product.product_id.categ_id.name"/>|
+191100204860166<t t-esc="product.dimensions"/>|
+191100304560166<t t-raw="product.product_template_attribute_value_ids.name"/>|
+1911003043601661N|
+191100304060166<t t-esc="product.date.strftime('%d-%m-%Y')"/>|
+191100303460166Rs.<t t-if="product.label1_state=='KL'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100303260166Rs.<t t-if="product.label1_state=='KA'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100302960166Rs.<t t-if="product.label1_state=='TM'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100302660166Rs.<t t-if="product.label1_state=='AN'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100302460166Rs.<t t-if="product.label1_state=='AP'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+1W1D2200001800040H,<t t-if="not product.manual_print=='manual'"><t t-esc="product.company_url(product.product_id.suffix,serials)"/></t><t t-if="product.manual_print=='manual'"><t t-esc="product.company_url(product.product_id.suffix,product.serial_no)"/></t>|
+1W1j5204401800123<t t-esc="barcode_sl"/>|
+191100401560123<t t-esc="barcode_sl"/>|
+E|
+</t>
+
+                         <t t-set="serials" t-value="serials+1"/>
+                    </t>
+
+                     <t t-if="not product.manual_print=='manual'"><t t-esc="product.serial_updation(serials)"/></t>
+
+
+                </t>
+
+
+            </t>
+        </template>
+
+    </data>
+</odoo>

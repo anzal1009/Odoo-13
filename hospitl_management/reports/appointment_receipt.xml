@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--<template id="appointment_receipt_document">-->
+    <!--    <t t-call="web.html_container">-->
+    <!--        <t t-foreach="docs" t-as="doc">-->
+    <!--            <h2>app receipt</h2>-->
+    <!--        </t>-->
+    <!--    </t>-->
+    <!--</template>-->
+
+
+    <template id="appointment_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <br></br>
+                    <br></br>
+
+
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-xs-4" style="margin:auto;">
+                        </div>
+                        <center>
+                            <h1>Appointment Card</h1>
+                            <div class="col-xs-12" style="margin:auto">
+
+
+                                <table class="app receipt" style=" border: 3px solid black !important;">
+                                    <tr>
+                                        <td>
+                                            <p style="text-align:center;padding-top:10px;">
+                                                <img t-if="not doc.name.photo"
+                                                     t-att-src="'/web/static/src/img/placeholder.png'" height="120"
+                                                     border="1" width="120"/>
+                                                <img t-if="doc.name.photo"
+                                                     t-att-src="'data:image/png;base64,%s' % to_text(doc.name.photo)"
+                                                     height="120" border="1" width="120"/>
+                                            </p>
+
+
+                                                <h2 style="text-align:center;margin-left:auto;margin-right:auto;">
+                                                    <strong>
+                                                        <span t-field="doc.name.name"/>
+                                                    </strong>
+                                                </h2>
+
+                                            <table>
+                                            <td>
+
+
+                                            <p style="text-align:right;">
+                                                <strong>Age :</strong>
+                                            </p>
+                                            <p style="text-align:right;">
+                                                <strong>Appointment Doctor :</strong>
+                                            </p>
+                                            <p style="text-align:right;">
+                                                <strong>Appointment Date:</strong>
+                                            </p>
+                                            <p style="text-align:right;">
+                                                <strong>Appointment Id::</strong>
+                                            </p>
+                                            </td>
+                                            <td>
+                                            <p style="text-align:left;padding-left:10px;"
+                                               t-field="doc.age"/>
+                                            <p style="text-align:left;padding-left:10px;"
+                                               t-field="doc.dname"/>
+                                            <p style="text-align:left;padding-left:10px;"
+                                               t-field="doc.ap_date"/>
+                                            <p style="text-align:left;padding-left:10px;"
+                                               t-field="doc.name_seq"/>
+                                            </td>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </center>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+        <!--                                        </td>-->
+<!--                                        <td width="60%">-->
+<!--                                            <table>-->
+<!--                                                <tr>-->
+<!--                                                    <td>-->
+
+<!--                                                        <p style="text-align:right;">-->
+<!--                                                            <strong>Age :</strong>-->
+<!--                                                        </p>-->
+<!--                                                        <p style="text-align:right;">-->
+<!--                                                            <strong>Appointment Date:</strong>-->
+<!--                                                        </p>-->
+<!--                                                        <p style="text-align:right;">-->
+<!--                                                            <strong>Appointment Id::</strong>-->
+<!--                                                        </p>-->
+<!--                                                    </td>-->
+<!--                                                    <td>-->
+
+<!--                                                        <p style="text-align:left;padding-left:10px;"-->
+<!--                                                           t-field="doc.age"/>-->
+<!--                                                        <p style="text-align:left;padding-left:10px;"-->
+<!--                                                           t-field="doc.ap_date"/>-->
+<!--                                                        <p style="text-align:left;padding-left:10px;"-->
+<!--                                                           t-field="doc.name_seq"/>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                            </table>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+<!--</odoo>-->
+

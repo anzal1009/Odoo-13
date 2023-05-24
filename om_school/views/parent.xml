@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_student_tree" model="ir.ui.view">
+            <field name="name">parent.parent.tree</field>
+            <field name="model">parent.parent</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Student">
+                    <field name="name"/>
+                    <field name="middle_name"/>
+                    <field name="last_name"/>
+                    <field name="student_gender"/>
+                    <field name="student_age"/>
+                    <field name="student_dob"/>
+                    <field name="student_blood_group"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_student_form" model="ir.ui.view">
+            <field name="name">parent.parent.form</field>
+            <field name="model">parent.parent</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Student">
+                    <sheet>
+                        <field name="photo" widget="image" class="oe_left oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="name" required="1" placeholder="First Name"/>
+                                        </td>
+                                        <td style="padding-right:10px;">
+                                            <field name="middle_name" placeholder="Middle Name"/>
+                                        </td>
+                                        <td style="padding-right:10px;">
+                                            <field name="last_name" placeholder="Last Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="personal_information" string="Personal Information">
+                                <group col="4" colspan="4" name="personal_detail">
+                                    <field name="student_gender"/>
+                                    <field name="student_age"/>
+                                    <field name="student_dob"/>
+                                    <field name="student_gender"/>
+                                    <field name="student_blood_group"/>
+                                    <field name="nationality"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.action.act_window" id="action_view_parent">
+                <field name="name">Parents</field>
+                <field name="res_model">parent.parent</field>
+                <field name="view_mode">tree,form</field>
+                <field name="domain">[]</field>
+                <field name="help" type="html">
+                        <p class="oe_view_noncontent_create">Create new parent</p>
+                </field>
+        </record>
+                <menuitem id="parent" name="parents" parent="menu_school" action="action_view_parent" sequence="20"/>
+    </data>
+</odoo>

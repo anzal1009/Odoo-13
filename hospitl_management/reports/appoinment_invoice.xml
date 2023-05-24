@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="appointment_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <!--                <t t-call="web.internal_layout">-->
+                <!--                <h1 align="center">APPOINTMENT INVOICE</h1>-->
+                <style>
+                    table,
+                    th,
+                    td {
+                    border: 1px solid black;
+                    }
+                </style>
+                <body>
+                    <table style="width: 1000px;" align="center" cellspacing="0">
+                        <tr>
+                            <th colspan="14" style="border: 1px solid black;" height="60">APPOINTMENT INVOICE</th>
+                        </tr>
+                        <tr>
+                            <th colspan="14" align="center" style="border: 1px solid black;" height="60">PATIENT APPOINMENT FORM</th>
+                        </tr>
+                        <tr>
+
+                            <th rowspan="3" colspan="14" style="border: 1px solid black;" align="center">
+                                <p><b><br>ABC Hospital</br></b>
+                                    <br>Anna Nagar</br>
+                                    <br>BPJ Road</br>
+                                    <br>Chennai,546 623</br>
+                                    <br>India</br>
+                                    <br>ph:0554 2811111,2222111</br></p>
+
+                            </th>
+<!--                            <td rowspan="3" colspan="4" style="border: 1px solid white;" align="center">-->
+
+<!--                            </td>-->
+                        </tr>
+                    </table>
+
+
+
+
+
+
+
+
+
+                    <table style="width: 1000px;" align="center" cellspacing="0">
+
+                        <tr>
+                            <td colspan="8" style="border: 1px solid black;" align="center">Appointment details</td>
+                            <td colspan="6" style="border: 1px solid black;" align="center">Doctor details</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" colspan="8" style="border: 1px solid black;">
+
+                                  <p style="text-align:left;">
+                                    <strong>APP ID :</strong>
+                                </p>
+                            <p style="text-align:center;padding-right:20px;"
+                               t-field="doc.name_seq"/>
+
+                            </td>
+                            <td rowspan="2" colspan="6" align="center" style="border: 1px solid black;">
+                                <span t-field="doc.dname"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width: 1000px;" align="center" cellspacing="0">
+                        <tr>
+                            <td rowspan="4" colspan="3" style="border: 1px solid white;">
+                                <p><u><b>Patient Details:</b></u></p>
+                                    <p style="text-align:center;padding-top:10px;">
+                                    <img t-if="not doc.name.photo"
+                                         t-att-src="'/web/static/src/img/placeholder.png'" height="120"
+                                         border="1" width="120"/>
+                                    <img t-if="doc.name.photo"
+                                         t-att-src="'data:image/png;base64,%s' % to_text(doc.name.photo)"
+                                         height="120" border="1" width="120"/>
+                                </p>
+
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" colspan="8" style="border: 1px solid white;">
+                                <p style="text-align:right;">
+                                    <strong>Name :</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Age:</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Gender:</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Appointment Date:</strong>
+                                </p>
+                            </td>
+                            <td rowspan="2" colspan="8" style="border: 1px solid white;">
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.name.name"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.age"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.gender"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.ap_date"/>
+                            </td>
+                            <td rowspan="3" colspan="3" align="center" style="border: border: 0 solid white;">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(doc.name.qr_code)"
+                                         height="120" border="0" width="120"/>
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <table style="width: 1000px;" align="center" cellspacing="0" height="150">
+                        <tr>
+                            <td colspan="1">Sno</td>
+                            <td colspan="3">Description</td>
+                            <td colspan="2">Quantity</td>
+                            <td colspan="2">Price</td>
+                            <td colspan="2">GST</td>
+                            <td colspan="2">CGST</td>
+                            <td colspan="2">Amount</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">01</td>
+                            <td colspan="3">Doctor consulting fees</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">100</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">02</td>
+                            <td colspan="3">Appoinment fees</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">100</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" align="right" style="border: 1px solid white;">Total</td>
+                            <td colspan="2">200</td>
+                        </tr>
+                    </table>
+
+
+
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <table style="width: 1000px;" align="center" cellspacing="0" height="100">
+                        <tr>
+                            <td align="center">***Get well soon***</td>
+                        </tr>
+
+
+
+
+
+
+
+
+<!--                        <tr>-->
+<!--                            <td rowspan="3" colspan="4" style="border: 1px solid black;">-->
+<!--                                <span t-field="doc.name.qr_code"/>-->
+
+<!--                            </td>-->
+<!--&lt;!&ndash;                            <th>remark</th>&ndash;&gt;-->
+<!--                        </tr>-->
+
+
+
+                    </table>
+
+                </body>
+
+
+            </t>
+        </t>
+    </template>
+</odoo>

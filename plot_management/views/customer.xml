@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_customer_tree" model="ir.ui.view">
+            <field name="name">plot.customer.tree</field>
+            <field name="model">plot.customer</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Customer">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="addres"/>
+                    <field name="gmail"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_customer_form" model="ir.ui.view">
+            <field name="name">plot.customer.form</field>
+            <field name="model">plot.customer</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Customer">
+                    <sheet>
+
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_enquiry" class="oe_stat_button" type="object"
+                                    icon="fa-handshake-o">
+                                <div class="o_stat_info">
+                                    <field name="name_count" class="oe_stat_value"/>
+                                    <span class="o_stat_text">Name</span>
+                                </div>
+                            </button>
+<!--                        </div>-->
+
+
+<!--                        <div class="oe_button_box" name="button_box">-->
+                            <button name="action_open_enquiry" class="oe_stat_button" type="object"
+                                    icon="fa-bars">
+                                <div class="o_stat_info">
+                                    <field name="phone_count" class="oe_stat_value"/>
+                                    <span class="o_stat_text">Phone</span>
+                                </div>
+                            </button>
+
+                        </div>
+
+
+                        <div class="oe_title">
+                             <field name="photo" widget="image" class="oe_avatar"/>
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="name" required="1" placeholder="Full Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="other_info" string="Personal Information">
+                                <group col="4" colspan="4" name="other_detail">
+                                    <field name="phone"/>
+                                    <field name="addres"/>
+                                    <field name="gmail"/>
+                                    <field name="name_count"/>
+                                    <field name="phone_count"/>
+
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_customer">
+            <field name="name">Customer</field>
+            <field name="res_model">plot.customer</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Customer</p>
+            </field>
+        </record>
+        <menuitem id="customer_menu" name="Customer" parent="plot_menu" action="action_view_customer"/>
+        <menuitem id="customer_menu1" name="Customers" parent="customer_menu" action="action_view_customer"/>
+        <menuitem id="create_enquiry_menu" name="Create Enquiry" parent="customer_menu" action="create_enquiry_action"
+                  sequence="20"/>
+    </data>
+</odoo>

@@ -1,0 +1,497 @@
+<odoo>
+    <data>
+        <record id="receipt_voucher_print_with_header" model="report.paperformat">
+            <field name="name">Receipt Voucher</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">45</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="account.action_report_payment_receipt" model="ir.actions.report">
+            <field name="paperformat_id" ref="eastern_receipt_payment_voucher.receipt_voucher_print_with_header"/>
+        </record>
+
+
+        <template id="receipt_payment_voucher_external_layout_header_footer">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+
+            <!--_______________ open header_________________________________-->
+            <div class="header" height="20px;">
+
+                <style type="text/css">
+                    .Row {
+                    display: table;
+                    width: 100%; /*Optional*/
+                    }
+
+                    @font-face {
+                    font-family: 'calibri';
+                    src: url('/arabic_invoice_print/static/src/fonts/calibri/Calibri.ttf') format('opentype');
+                    }
+
+                    @font-face {
+                    font-family: 'Times New Roman';
+                    src: local('Times New Roman'), local('Times New Roman'),
+                    url(/arabic_invoice_print/static/src/fonts/times_new_roman.ttf') format('ttf');
+                    }
+
+                    @font-face {
+                    font-family: 'Arial';
+                    src: local('Arial'), local('Arial'),
+                    url(/arabic_invoice_print/static/src/fonts/arial.ttf') format('truetype');
+                    }
+                    @font-face {
+                    font-family: 'Verdana';
+                    src: local('Verdana'), local('Verdana'),
+                    url(/arabic_invoice_print/static/src/fonts/verdana.ttf') format('ttf');
+                    }
+
+                    .arabic-font {
+                    font-family: arial;
+                    }
+
+                    .en-font {
+                    font-family: Verdana;
+                    }
+                    .arabic_calibri{
+                    font-family: calibri;
+                    }
+                    th, td {
+                    padding: 3px;
+                    }
+                    tr{
+                    page-break-inside: avoid;
+                    }
+                </style>   <!-- closed header style-->
+
+                <!--                <div>-->
+                <!--                    <img style="width:100%;float:center;height=20px;"-->
+                <!--                         t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.header_image)"/>-->
+                <!--                </div>-->
+                <br/>
+                <!-- closed -->
+
+                <div class="row" style="float:center;">
+
+
+                    <div class="col-4">
+
+                    </div>
+
+                    <!-- column 2 for VAT NAME-->
+
+                    <div class="col-4" style="font-weight:bold;float:center;">
+                        <!--                        #invoice-->
+
+
+                        <t t-if="o.payment_type =='inbound'">
+
+
+                            <div class="en-font"
+                                 style="font-family: 'font-a-bold';float:center;text-align:center;text-decoration: underline; margin-top:-9px;font-size : 22px; font-weight: 900;text-weight:bold;">
+                                <b>Receipt Voucher</b>
+                            </div>
+
+                        </t>
+                        <!--                        #vendor-->
+                        <t t-if="o.payment_type == 'outbound'">
+
+                            <div class="en-font"
+                                 style="font-family: 'font-a-bold';float:center;text-align:center;text-decoration: underline; margin-top:-9px;font-size : 22px; font-weight: 900;text-weight:bold;">
+                                <b>Payment Voucher</b>
+                            </div>
+
+
+                        </t>
+
+                    </div>
+
+                    <div class="col-4">
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <!--____________________ closed header____________________________-->
+
+            <div class="footer" style=" padding-top: 10px; margin-top: 10px;margin-left:10px box-sizing: border-box;">
+                <!--                 ______________open Footer________________________-->
+                <style type="text/css">
+                    .Row {
+                    display: table;
+                    width: 100%; /*Optional*/
+                    }
+
+                    @font-face {
+                    font-family: 'calibri';
+                    src: url('/arabic_invoice_print/static/src/fonts/calibri/Calibri.ttf') format('opentype');
+                    }
+
+                    @font-face {
+                    font-family: 'Times New Roman';
+                    src: local('Times New Roman'), local('Times New Roman'),
+                    url(/arabic_invoice_print/static/src/fonts/times_new_roman.ttf') format('ttf');
+                    }
+
+                    @font-face {
+                    font-family: 'Arial';
+                    src: local('Arial'), local('Arial'),
+                    url(/arabic_invoice_print/static/src/fonts/arial.ttf') format('truetype');
+                    }
+                    @font-face {
+                    font-family: 'Verdana';
+                    src: local('Verdana'), local('Verdana'),
+                    url(/arabic_invoice_print/static/src/fonts/verdana.ttf') format('ttf');
+                    }
+
+                    .arabic-font {
+                    font-family: arial;
+                    }
+
+
+                    .en-font {
+                    font-family: Verdana;
+                    }
+                    .arabic_calibri{
+                    font-family: calibri;
+                    }
+                    th, td {
+                    padding: 3px;
+                    }
+                    tr{
+                    page-break-inside: avoid;
+                    }
+                </style>
+
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                        <span class="en-font"></span>
+                    </ul>
+
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                </div>
+
+
+                <!--                                <div class="col-12" style="margin-left:-16px;position:absolute;text-align:center;align:center;margin-top:10px; float:center;" >-->
+                <!--                            <center>-->
+                <!--&lt;!&ndash;                                <t t-if="o.company_id.footer_image">&ndash;&gt;-->
+                <!--&lt;!&ndash;                             <img style="width:100%;float:center;height:100px"&ndash;&gt;-->
+                <!--&lt;!&ndash;                             t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.footer_image)"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;                            </t>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                <br/>&ndash;&gt;-->
+                <!--                                <b class="en-font" style="font-size: 12px;text-align:center;width:100%;float:center;">Page <span class="page"/> of <span class="topage"/></b>-->
+
+                <!--                                    </center>-->
+                <!--                             </div>-->
+
+            </div>
+
+
+        </template>
+
+
+        <template id="receipt_payment_voucher_external_layout">
+            <div class="article">
+                <t t-call="eastern_receipt_payment_voucher.receipt_payment_voucher_external_layout_header_footer"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+
+        <template id="eastern_receipt_payment" inherit_id="account.report_payment_receipt_document">
+            <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+
+
+                <t t-call="web.external_layout">
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div class="page">
+
+                        <!--                      <div class="row">-->
+                        <!--                        <div class="col-7" t-if="o.partner_type">-->
+
+                        <!--                            <table>-->
+                        <!--                                <tr style="font-size:26px;">-->
+                        <!--                                    <td>-->
+                        <!--                                       <t t-if="o.payment_type == 'inbound'">-->
+                        <!--                                        <b>Receipt</b>-->
+                        <!--                                        </t>-->
+                        <!--                                         <t t-if="o.payment_type == 'outbound'">-->
+                        <!--                                            <b>Payment Voucher</b>-->
+                        <!--                                         </t>-->
+
+
+                        <!--                                    </td>-->
+                        <!--                                    <td>-->
+                        <!--                                        :-->
+                        <!--                                    </td>-->
+                        <!--                                     <td>-->
+                        <!--                                         <t t-if="o.payment_method_id">-->
+                        <!--                                          <t t-if="o.name">-->
+                        <!--                                             <![CDATA[ &nbsp; ]]><b> <span t-field="o.name"/></b>-->
+                        <!--                                        </t>-->
+                        <!--                                         </t>-->
+                        <!--                                    </td>-->
+
+                        <!--                                </tr>-->
+                        <!--&lt;!&ndash;                                  <tr style="vertical-align:top">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                    <td style="verticle-align:top;">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                         <t t-if="o.payment_type == 'inbound'">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        <b>Receipt Date</b>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        </t>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                         <t t-if="o.payment_type == 'outbound'">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                         <b>Payment Date</b>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                         </t>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                       <td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        :&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;                                 <b><t t-if="o.date">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                             <![CDATA[ &nbsp; ]]><b> <span t-field="o.date"/></b>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        </t></b>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;&lt;!&ndash;                                <t t-if="o.partner_id.zip">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                    <t t-esc="o.partner_id.zip"/>.<br/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                </t>&ndash;&gt;&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;&lt;!&ndash;                                <t t-if="o.partner_id.phone">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                   Tel:  <t t-esc="o.partner_id.phone"/> <br/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                </t>&ndash;&gt;&ndash;&gt;-->
+
+
+                        <!--&lt;!&ndash;&lt;!&ndash;                                <t t-if="o.partner_id.mobile">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                   Mobile No.: <t t-esc="o.partner_id.mobile"/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                    <br/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                </t>&ndash;&gt;&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;&lt;!&ndash;                                 <t t-if="o.partner_id.country_id.name">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                    <t t-esc="o.partner_id.country_id.name"/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                </t><br/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                <t t-if="o.partner_id.vat">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                    VAT: <t t-esc="o.partner_id.vat"/>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;                                </t>&ndash;&gt;&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;                                </tr>&ndash;&gt;-->
+                        <!--                            </table>-->
+
+                        <!--                        </div>-->
+                        <!--                          <div class="col-3"></div>-->
+                        <!--                        <div class="col-2">-->
+
+
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+
+
+                        <!--                <div class="mb-4 mt-6">-->
+
+                        <div class="row">
+                            <div class="col-12" style="font-size:26px;">
+                                <t t-if="o.payment_type == 'inbound'">
+                                    <b>Receipt</b>
+                                </t>
+                                <t t-if="o.payment_type == 'outbound'">
+                                    <b>Payment Voucher</b>
+                                </t>
+
+                                :
+
+
+                                <t t-if="o.payment_method_id">
+                                    <t t-if="o.name">
+                                        <![CDATA[ &nbsp; ]]>
+                                        <b>
+                                            <span t-field="o.name"/>
+                                        </b>
+                                    </t>
+                                </t>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6" t-if="o.partner_type">
+                                <t t-if="o.payment_type == 'inbound'">
+                                    Receipt Date
+                                </t>
+                                <t t-if="o.payment_type == 'outbound'">
+                                    Payment Date
+                                </t><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>:
+                                <t t-if="o.date">
+                                    <![CDATA[ &nbsp; ]]>
+                                    <span t-field="o.date"/>
+                                </t>
+                                <br/>
+                                <t t-if="o.payment_type == 'inbound'">
+                                    Customer
+                                </t>
+
+
+                                <t t-if="o.payment_type == 'outbound'">
+                                    Vendor</t><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]>:<![CDATA[ &nbsp; ]]>
+                                <span t-field="o.partner_id.name"/>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-5" t-if="o.payment_method_line_id">
+                                <t t-if="o.payment_type == 'inbound'">
+                                    Receiving Method
+                                </t>
+                                <t t-if="o.payment_type == 'outbound'">
+                                    Payment Method</t><![CDATA[ &nbsp; ]]> :<![CDATA[ &nbsp; ]]>
+                                <span t-field="o.payment_method_line_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6" t-if="o.amount">
+                                <t t-if="o.payment_type == 'inbound'">
+                                    Receipt Amount
+                                </t>
+                                <t t-if="o.payment_type == 'outbound'">
+                                    Payment Amount
+                                </t>
+                                :<![CDATA[ &nbsp; ]]>
+                                <span t-field="o.amount"
+                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-5" t-if="o.ref">
+                                Memo<![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>
+                                <![CDATA[ &nbsp; ]]><![CDATA[ &nbsp; ]]>:<![CDATA[ &nbsp; ]]>
+                                <span t-field="o.ref"/>
+                            </div>
+                        </div>
+                        <!--                </div>-->
+                        <br/>
+                        <!--                <table class="table table-sm">-->
+                        <!--                    <thead style="border-bottom:1px ;">-->
+                        <!--                        <tr>-->
+                        <!--                            <th><b>Invoice Date</b></th>-->
+                        <!--                            <th><b>Invoice Number</b></th>-->
+                        <!--                            <th><b>Reference</b></th>-->
+                        <!--                            <th class="text-right"><b>Amount</b></th>-->
+                        <!--                        </tr>-->
+                        <!--                    </thead>-->
+                        <!--                    <tbody>-->
+                        <!--                        <t t-foreach="o.move_id._get_reconciled_invoices_partials()" t-as="rec">-->
+                        <!--                            &lt;!&ndash; MOVE &ndash;&gt;-->
+                        <!--                            <t t-set="inv" t-value="rec[2].move_id"/>-->
+                        <!--                            <t t-if="inv.move_type != 'entry'">-->
+                        <!--                                <tr>-->
+                        <!--                                    <td><span t-field="inv.invoice_date"/></td>-->
+                        <!--                                    <td><span t-field="inv.name"/></td>-->
+                        <!--                                    <td><span t-field="inv.ref"/></td>-->
+                        <!--                                    <td class="text-right"><span t-field="inv.amount_total"/></td>-->
+                        <!--                                </tr>-->
+                        <!--                                &lt;!&ndash; PAYMENTS/REVERSALS &ndash;&gt;-->
+                        <!--                                <tr t-foreach="inv._get_reconciled_invoices_partials()" t-as="par">-->
+                        <!--                                    <t t-set="amount" t-value="par[1]"/>-->
+                        <!--                                    <t t-set="payment" t-value="par[2].move_id"/>-->
+                        <!--                                    <td><span t-field="payment.date"/></td>-->
+                        <!--                                    <td><span t-field="payment.name"/></td>-->
+                        <!--                                    <td><span t-field="payment.ref"/></td>-->
+                        <!--                                    <td class="text-right">-<span t-esc="amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>-->
+                        <!--                                </tr>-->
+                        <!--                                &lt;!&ndash; BALANCE &ndash;&gt;-->
+                        <!--                                <tr>-->
+                        <!--                                    <td/>-->
+                        <!--                                    <td><strong>Due Amount for <span t-field="inv.name"/></strong></td>-->
+                        <!--                                    <td/>-->
+                        <!--                                    <td class="text-right"><strong><span t-field="inv.amount_residual"/></strong></td>-->
+                        <!--                                </tr>-->
+                        <!--                            </t>-->
+                        <!--                        </t>-->
+                        <!--                    </tbody>-->
+                        <!--                </table>-->
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+                        <div class="en-font"
+                             style="page-break-inside:avoid;width:100%;height:40px;margin-bottom:100px;margin-left:16px;">
+
+                            <div class="en-font"
+                                 style="float:left;text-align:left;text-weight:bold;width: 100%;padding-bottom:0px;">
+                                <strong>Amount In Words:</strong>
+                                <br/>
+                                <t t-set="english" t-value="'{0:.2f}'.format(float(o.amount_total))"/>
+                                <t t-set="english_val" t-value="float(english)"/>
+                                <t t-set="amount_word"
+                                   t-value="o.english_amt2words(english_val,o.currency_id.currency_unit_label,o.currency_id.currency_subunit_label,2)"/>
+                                <span t-esc="amount_word"/>
+
+                            </div>
+
+                            <div class="en-font" style="float:left;text-align:center;text-weight:bold;width:55%;">
+                            </div>
+                            <t t-if="o.payment_type == 'inbound'">
+                                <div class="en-font"
+                                     style="float:right;text-align:right;text-weight:bold;width:33%;margin-right:30px;">
+
+                                    <b class="en-font">Authorized Signatory</b>
+
+                                </div>
+                            </t>
+                        </div>
+                        <t t-if="o.payment_type == 'outbound'">
+                            <div class="row">
+                                <div class="col-4" style="text-align:left;text-weight:bold;">
+                                    <b class="en-font">Receiver Signature</b>
+                                </div>
+                                <div class="col-4" style="text-align:center;text-weight:bold;">
+                                    <b class="en-font">Verified By</b>
+                                </div>
+                                <div class="col-4" style="text-align:right;text-weight:bold;">
+                                    <b class="en-font">Authorized Signatory</b>
+                                </div>
+                            </div>
+                        </t>
+
+                    </div>
+                </t>
+
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

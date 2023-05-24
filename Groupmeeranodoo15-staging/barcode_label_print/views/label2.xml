@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="barcode_label2_product_view">
+		<t t-foreach="quantity.items()" t-as="barcode_and_qty_by_product">
+                <t t-set="product" t-value="barcode_and_qty_by_product[0]"/>
+                <t t-foreach="barcode_and_qty_by_product[1]" t-as="barcode_and_qty">
+                    <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                    <t t-foreach="range(barcode_and_qty[1])" t-as="qty">
+<!--                          <t t-if="product.product_id.suffix">-->
+                            <t t-set="barcode_sl" t-value="product.product_id.suffix+str(serials)"/>
+<!--                        </t>-->
+<!--                         <t t-if="not product.product_id.suffix">-->
+<!--                            <t t-set="barcode_sl" t-value="str(serials)"/>-->
+<!--                        </t>-->
+                         <t t-if="product.manual_print=='manual'">
+                             <t t-set="barcode_sl" t-value="product.serial_no"/>
+                        </t>
+                        <t t-translation="off">
+
+
+~m
+~L
+D11|
+H15|
+FB+|
+191100310620357 <t t-esc="product.product_id.name"/>|
+191100210220361 <t t-esc="product.dimensions"/>|
+191100509600361 <t t-raw="product.product_template_attribute_value_ids.name"/>|
+191100509100361 1|
+191100308600361 <t t-esc="product.date.strftime('%d-%m-%Y')"/>|
+191100208200361 <t t-esc="product.content"/>|
+1W1j3312002500080 <t t-esc="barcode_sl"/>|
+191100302050240 <t t-esc="barcode_sl"/>|
+191100506730430 Rs.<t t-if="product.label1_state=='KL'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100506230430 Rs.<t t-if="product.label1_state=='TM'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100504730430 Rs.<t t-if="product.label1_state=='AN'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100504230430 Rs.<t t-if="product.label1_state=='KA'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100505730430 Rs.<t t-if="product.label1_state=='GO'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+191100505230430 Rs.<t t-if="product.label1_state=='MH'"><t t-esc="product.product_id.product_mrp" t-options='{"widget": "float", "precision": 2}'/></t><t t-else="">0</t>|
+1W1D44000001202982,LA,<t t-if="not product.manual_print=='manual'"><t t-esc="product.company_url(product.product_id.suffix,serials)"/></t><t t-if="product.manual_print=='manual'"><t t-esc="product.company_url(product.product_id.suffix,product.serial_no)"/></t>|
+Q0001|
+E|
+
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+
+<!--<t t-if="barcode">-->
+<!--2W1j5204403300231<t t-esc="barcode"/>|-->
+<!--</t>-->

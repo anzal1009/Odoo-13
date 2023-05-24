@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="plot_page" name="Plot Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <!--                hiii-->
+                <!--                <t t-foreach="customer" t-as="customer">-->
+
+                <!--                    <t t-esc="customer.name"/>-->
+                <!--                </t>-->
+
+
+                <h1>
+                    Customer details
+                </h1>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>
+                                <h2>
+                                    Name
+                                </h2>
+
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="customer" t-as="customer">
+                            <tr>
+                                <td>
+                                    <t t-esc="customer.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </t>
+    </template>
+</odoo>

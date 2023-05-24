@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="om_account_account_asset_view_form">
+        <field name="name">account.asset.form</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_form"/>
+        <field name="arch" type="xml">
+
+<!--             <field name="name" position="before">-->
+<!--                <field name="sequence"/>-->
+<!--            </field>-->
+<!--            <h1 position="before">-->
+                   <xpath expr="//div[@class='oe_title']" position="before">
+                <label for="sequence" class="oe_edit_only"/>
+                <h2><field name="sequence" class="oe_inline"/></h2>
+                   </xpath>
+<!--            </h1>-->
+        </field>
+    </record>
+
+       <record model="ir.ui.view" id="account_account_asset_view_list">
+        <field name="name">account.asset.list</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_purchase_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="sequence"/>
+            </field>
+
+        </field>
+    </record>
+  </data>
+</odoo>

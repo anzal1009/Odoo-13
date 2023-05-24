@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_configuration_tree" model="ir.ui.view">
+            <field name="name">apartment.configuration.tree</field>
+            <field name="model">apartment.configuration</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Projects">
+                    <field name="name"/>
+                    <field name="dist"/>
+                    <field name="pid"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_configuration_form" model="ir.ui.view">
+            <field name="name">apartment.configuration.form</field>
+            <field name="model">apartment.configuration</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Projects">
+                    <sheet>
+                        <h1>Project Registration</h1>
+                        <br></br>
+                        <br></br>
+                        <div class="sub">
+                            <group col="4" colspan="4" name="customer_detail">
+                                <field name="name"/>
+                                <field name="dist"/>
+                                <field name="pid"/>
+                                <field name="states"/>
+                                <field name="country"/>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         <record model="ir.actions.act_window" id="action_view_projects">
+            <field name="name">Projects</field>
+            <field name="res_model">apartment.configuration</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Project</p>
+            </field>
+        </record>
+          <menuitem id="configure_menu" name="Cofiguration" parent="apartment_customer" sequence="40"/>
+        <menuitem id="configure_menu1" name="Projects" parent="configure_menu" action="action_view_projects" sequence="10"/>
+    </data>
+</odoo>
+
+
+

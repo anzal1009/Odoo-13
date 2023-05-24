@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="seq_apartment_customer" model="ir.sequence">
+            <field name="name">Customer Sequences</field>
+            <field name="code">apartment.customer</field>
+            <field name="prefix">CS</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_apartment_sales" model="ir.sequence">
+            <field name="name">Sales Sequences</field>
+            <field name="code">apartment.sales</field>
+            <field name="prefix">S</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_apartment_sales_team" model="ir.sequence">
+            <field name="name">Sales Team Sequences</field>
+            <field name="code">apartment.salesteam</field>
+            <field name="prefix">ST</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_enquiry" model="ir.sequence">
+            <field name="name">Enquiry Sequences</field>
+            <field name="code">apartment.enquiry</field>
+            <field name="prefix">EQ</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

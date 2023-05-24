@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_doctor_tree" model="ir.ui.view">
+            <field name="name">hospital.doctor.tree</field>
+            <field name="model">hospital.doctor</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Doctor">
+                    <field name="name"/>
+                    <field name="staffid"/>
+                    <field name="phone"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_doctor_form" model="ir.ui.view">
+            <field name="name">hospital.doctor.form</field>
+            <field name="model">hospital.doctor</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Doctor">
+
+
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="name" required="1" placeholder="Full Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="staff_info" string="Doc Information">
+                                <group col="4" colspan="4" name="staff_detail">
+                                    <field name="staffid"/>
+                                    <field name="phone"/>
+<!--                                    <field name="appointment_count"/>-->
+
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_doctor">
+            <field name="name">Doctor</field>
+            <field name="res_model">hospital.doctor</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Doctor</p>
+            </field>
+        </record>
+
+        <menuitem id="hospital_doctor" name="Doctor" parent="menu_hospital" action="action_view_doctor"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_location_area,sales_report.location_area,model_location_area,,1,1,1,1
+access_sale_report_wizard,sales_report.sale_report_wizard,model_sale_report_wizard,,1,1,1,1
+access_sale_report_excel,sales_report.sale_report_excel,model_sale_report_excel,,1,1,1,1
+access_sale_month,sales_report.sale_month,model_sale_month,,1,1,1,1

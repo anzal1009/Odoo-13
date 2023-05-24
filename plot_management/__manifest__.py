@@ -1,0 +1,23 @@
+{''
+ 'name': 'Plot Record',
+ 'summary': """This module will add a record to store student details""",
+ 'version': '10.0.1.0.0',
+'sequence':'-40',
+ 'description': """This module will add a record to store student details""",
+ 'author': 'Anzal',
+ 'company': 'Cybrosys Techno Solutions',
+ 'website': 'https://www.cybrosys.com',
+ 'category': 'Tools',
+ 'depends': ['sale'],
+ 'license': 'AGPL-3',
+ 'data': ['security/ir.model.access.csv',
+'wizard/create_enquiry.xml',
+ 'views/enquiry.xml',
+ 'views/customer.xml',
+ 'views/template.xml',
+          ],
+ 'demo': [],
+ 'installable': True,
+ 'auto_install': False,
+ 'application' : True
+ }

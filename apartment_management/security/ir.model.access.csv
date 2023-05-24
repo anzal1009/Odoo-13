@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_apartment_customer,access.apartment.customer,model_apartment_customer,,1,1,1,1
+access_apartment_enquiry,access.apartment.enquiry,model_apartment_enquiry,,1,1,1,1
+
+access_apartment_configuration,access.apartment.configuration,model_apartment_configuration,,1,1,1,1
+access_apartment_blocks,access.apartment.blocks,model_apartment_blocks,,1,1,1,1
+access_apartment_floors,access.apartment.floors,model_apartment_floors,,1,1,1,1
+access_apartment_unit,access.apartment.unit,model_apartment_unit,,1,1,1,1
+access_apartment_flats,access.apartment.flats,model_apartment_flats,,1,1,1,1
+access_apartment_sales,access.apartment.sales,model_apartment_sales,,1,1,1,1
+access_apartment_salesteam,access.apartment.salesteam,model_apartment_salesteam,,1,1,1,1
+access_apartment_salesteam_lines,access.apartment.salesteam.lines,model_apartment_salesteam_lines,,1,1,1,1

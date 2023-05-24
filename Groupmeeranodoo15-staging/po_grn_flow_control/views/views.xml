@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- PO GRN Approval Code-->
+        <!-- <record id="view_stock_picking_form_approval" model="ir.ui.view">
+            <field name="name">stock.picking.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='button_scrap']" position="after">
+                    <button name="%(act_stock_picking_approval)d" string="Send for Approval"
+                            type="action" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('approval_state', '!=', 'draft'), ('qty_approval_required', '=', False)]}"/>
+                    <button name="action_approve_grn" string="Approve"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': [('approval_state', '!=', 'waiting_for_approval')]}"
+                            groups="po_grn_flow_control.group_po_grn_flow_approve"/>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='location_dest_id']" position="after">
+                    <field name="approval_state" invisible="1"/>
+                    <field name="qty_approval_required" invisible="1"/>
+                </xpath>
+                <xpath expr="//sheet/div[@name='button_box']" position="after">
+                    <widget name="web_ribbon" title="Waiting for Approval"
+                            attrs="{'invisible': [('approval_state', '!=', 'waiting_for_approval')]}"/>
+                </xpath>
+            </field>
+        </record> -->
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="asset_sequence_updation.list">
+      <field name="name">asset_sequence_updation list</field>
+      <field name="model">asset_sequence_updation.asset_sequence_updation</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="asset_sequence_updation.action_window">
+      <field name="name">asset_sequence_updation window</field>
+      <field name="res_model">asset_sequence_updation.asset_sequence_updation</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="asset_sequence_updation.action_server">
+      <field name="name">asset_sequence_updation server</field>
+      <field name="model_id" ref="model_asset_sequence_updation_asset_sequence_updation"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="asset_sequence_updation" id="asset_sequence_updation.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="asset_sequence_updation.menu_1" parent="asset_sequence_updation.menu_root"/>
+    <menuitem name="Menu 2" id="asset_sequence_updation.menu_2" parent="asset_sequence_updation.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="asset_sequence_updation.menu_1_list" parent="asset_sequence_updation.menu_1"
+              action="asset_sequence_updation.action_window"/>
+    <menuitem name="Server to list" id="asset_sequence_updation" parent="asset_sequence_updation.menu_2"
+              action="asset_sequence_updation.action_server"/>
+-->
+  </data>
+</odoo>

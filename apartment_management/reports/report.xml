@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report
+            id="report_enquiry_receipt"
+            string="Sales Invoice"
+            model="apartment.enquiry"
+            report_type="qweb-pdf"
+            name="apartment_management.apartment_invoice"
+            file="apartment_management.apartment_invoice"/>
+</odoo>

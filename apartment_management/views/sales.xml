@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_sales_tree" model="ir.ui.view">
+            <field name="name">apartment.sales.tree</field>
+            <field name="model">apartment.sales</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Sales">
+                    <field name="name_seq"/>
+                    <field name="cname"/>
+                    <field name="name"/>
+<!--                    <field name="camount"/>-->
+
+<!--                    <field name="phone"/>-->
+
+                    <!--                    <field name="block"/>-->
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_sales_form" model="ir.ui.view">
+            <field name="name">apartment.sales.form</field>
+            <field name="model">apartment.sales</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Sales">
+                    <sheet>
+
+<!--                         <div class="oe_button_box" name="button_box">-->
+<!--                            <button name="action_open_customer" class="oe_stat_button" type="object"-->
+<!--                                    icon="fa-handshake-o">-->
+<!--                                <div class="o_stat_info">-->
+<!--&lt;!&ndash;                                    <field name="appointment_count" class="oe_stat_value"/>&ndash;&gt;-->
+<!--                                    <span class="o_stat_text">Customer Preview</span>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                         </div>-->
+
+
+
+                        <h1>
+                            <field name="name_seq" readonly="1"/>
+                        </h1>
+                        <!--                        <h1>Blocks Registration</h1>-->
+                        <div class="name">
+                            <h1>
+                                <group col="2" colspan="2" name="fname">
+
+                                    <group>
+                                        <field name="cname"/>
+                                    </group>
+
+                                </group>
+                            </h1>
+                        </div>
+                        <div class="sub">
+                            <group col="4" colspan="4" name="customer_detail">
+                                <!--                                <field name="name"/>-->
+                                <field name="date"/>
+                                <field name="addres"/>
+
+                                <field name="phone"/>
+                                <field name="method"/>
+                                <!--                                <field name="block"/>-->
+                            </group>
+                        </div>
+                        <br></br>
+
+                        <notebook colspan="4">
+                            <page name="other" string="Sales Info">
+                                <group col="4" colspan="4" name="other_details">
+                                    <field name="spersn"/>
+                                    <field name="projname"/>
+                                    <field name="name"/>
+                                    <field name="price"/>
+                                </group>
+                            </page>
+                            <page name="pers_info" string="Flat Info">
+                                <group col="4" colspan="4" name="customer_detail">
+
+                                    <field name="bloname"/>
+                                    <field name="floor"/>
+                                    <field name="utype"/>
+                                </group>
+                            </page>
+                             <page name="ser_info" string="Other Services">
+                                <group col="4" colspan="4" name="servi_detail">
+                                    <field name="serv"/>
+                                    <field name="main"/>
+<!--                                    <field name="floor"/>-->
+<!--                                    <field name="utype"/>-->
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_sales">
+            <field name="name">Sales</field>
+            <field name="res_model">apartment.sales</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Data</p>
+            </field>
+        </record>
+
+        <menuitem id="sales_menu" name="Sales" parent="apartment_customer" sequence="20"/>
+        <menuitem id="sales_menu1" name="Quatations" parent="sales_menu" action="action_view_sales"/>
+
+        <!--          <menuitem id="configure_menu" name="Cofiguration" parent="apartment_customer" />-->
+        <!--        <menuitem id="configure_menu2" name="Blocks" parent="configure_menu" action="action_view_blocks" sequence="10"/>-->
+    </data>
+</odoo>
+
+

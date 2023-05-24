@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+                <record id="location_area_tree_view" model="ir.ui.view">
+            <field name="name">location.area.tree.view</field>
+            <field name="model">location.area</field>
+            <field name="arch" type="xml">
+                <tree string="Area">
+                    <field name="name"/>
+                    <field name="code"/>
+                     <field name="area_manager"/>
+                     <field name="state"/>
+                     <field name="state_manager"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="location_area_form_view" model="ir.ui.view">
+            <field name="name">location.area.form.view</field>
+            <field name="model">location.area</field>
+            <field name="arch" type="xml">
+                <form string="Area">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="area_manager"/>
+                     <field name="state"/>
+                     <field name="state_manager"/>
+                        <field name="users">
+                                <tree string="Users" editable="top">
+                                        <field name="name"/>
+                                </tree>
+                        </field>
+
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_location_area" model="ir.actions.act_window">
+            <field name="name">Area</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">location.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Area
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Area"
+                  id="menu_location_area"
+                  sequence="10"
+                  action="action_location_area"
+                 parent="sale.menu_sale_config"/>
+
+
+
+
+    </data>
+</odoo>

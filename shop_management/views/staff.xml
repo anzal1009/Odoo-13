@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_staff_tree" model="ir.ui.view">
+            <field name="name">staff.staff.tree</field>
+            <field name="model">staff.staff</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Staff">
+                    <field name="sname"/>
+                    <field name="staffid"/>
+                    <field name="phone"/>
+                    <field name="saddres"/>
+                    <field name="designation"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_staff_form" model="ir.ui.view">
+            <field name="name">staff.staff.form</field>
+            <field name="model">staff.staff</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Staff">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="sname" required="1" placeholder="Full Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="staff_info" string="Staff Information">
+                                <group col="4" colspan="4" name="staff_detail">
+                                    <field name="name"/>
+                                    <field name="staffid"/>
+                                    <field name="phone"/>
+                                    <field name="saddres"/>
+                                    <field name="designation"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         <record model="ir.actions.act_window" id="action_view_staff">
+            <field name="name">Staff</field>
+            <field name="res_model">staff.staff</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Staff</p>
+            </field>
+        </record>
+            <menuitem id="staff_staff" name="Staff" parent="menu_school" action="action_view_staff"/>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+ <odoo>
+      <data>
+     <record id="group_purchase_order_approver" model="res.groups">
+            <field name="name">Allow Purchase Order</field>
+        </record>
+      </data>
+ </odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_barcode_label,barcode_label_print.product_labels,model_product_labels,,1,1,1,1
+access_label_category,barcode_label_print.label_category,model_label_category,,1,1,1,1
+stock.access_product_product_stock_user,product_product_stock_user,product.model_product_product,stock.group_stock_user,1,1,0,0
+stock.access_product_template_stock_user,product.template stock user,product.model_product_template,stock.group_stock_user,1,1,0,0

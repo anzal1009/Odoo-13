@@ -1,0 +1,272 @@
+<odoo>
+    <data>
+
+        <record id="action_dismantle_product_moves_qc" model="ir.actions.act_window">
+            <field name="name">Stock Moves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.move.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|', ('move_id.produce_dismantle_id', '=', active_id),
+                ('move_id.consume_dismantle_id', '=',
+                active_id)]
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    There's no product move yet
+                </p>
+                <p>
+                    This menu gives you the full traceability of inventory operations on a specific product.
+                    You can filter on the product to see all the past movements for the product.
+                </p>
+            </field>
+        </record>
+
+        <record id="dismantle_form_view" model="ir.ui.view">
+            <field name="name">dismantle.process.form</field>
+            <field name="model">dismantle.process</field>
+            <field name="arch" type="xml">
+                <form string="Dismantle Process" create="0">
+                    <header>
+                        <button name="action_validate" string="Validate" type="object"
+                                class="oe_highlight" data-hotkey="v"
+                        attrs="{'invisible': ['|', '|', ('state', 'not in', ['transferred']), ('picking_id_status', '!=', 'done'), ('process', 'not in', ('dismantle', 'repair'))]}"/>
+                        <button name="scrap_product" class="btn-primary"
+                                string="Scrap" type="object"
+                                attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft']), ('picking_id_status', '!=', 'done'), ('process', '!=', 'scrap')]}"/>
+                        <button name="repair_product" class="btn-primary"
+                                string="Repair" type="object"
+                                attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft']), ('picking_id_status', '!=', 'done'), ('process', '!=', 'repair')]}"/>
+                        <button name="dismantle_product" class="btn-primary"
+                                string="Dismantle Transfer" type="object"
+                                attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft']), ('picking_id_status', '!=', 'done'), ('process', '!=', 'dismantle')]}"/>
+
+                        <button name="action_cancel"
+                                string="Cancel" type="object"
+                                attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                        <button name="action_set_to_draft"
+                                string="Set to Draft" type="object"
+                                attrs="{'invisible': [('state', 'not in', ['cancel'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,transferred,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_scrap"
+                                    class="oe_stat_button"
+                                    icon="fa-arrows-v"
+                                    attrs="{'invisible':['|', '|', ('state', 'in', ('draft','cancel', 'transferred')), ('picking_id_status', '!=', 'done'), ('process', '!=', 'scrap')]}">
+                                Scrap
+                                <field name='scrap_id' invisible="1"/>
+                            </button>
+
+                            <!-- Repair Process-->
+                            <button type="object" name="action_view_repair"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible':['|', '|', ('state', 'in', ('draft','cancel')), ('picking_id_status', '!=', 'done'), ('process', '!=', 'repair')]}">
+                                Repair Transfer
+                                <field name='repair_picking_id' invisible="1"/>
+                            </button>
+                            <button type="object" name="action_view_delivery"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible':['|',('state', 'in', ('draft','cancel','transferred')), ('process', '!=', 'repair')]}">
+                                Repair Delivery
+                                <field name='repair_delivery_id' invisible="1"/>
+                            </button>
+                            <!-- Repair Processs-->
+
+                            <!-- Dismantle Process-->
+                            <button type="object" name="action_view_dismantle_transfer"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible':['|', '|', ('state', 'in', ('draft','cancel')), ('picking_id_status', '!=', 'done'), ('process', '!=', 'dismantle')]}">
+                                Transfer
+                                <field name='dismantle_picking_id' invisible="1"/>
+                            </button>
+
+                            <button class="oe_stat_button" name="%(action_dismantle_product_moves_qc)d"
+                                    string="Product Moves" type="action" icon="fa-exchange"
+                            attrs="{'invisible':['|', '|', ('state', 'in', ('draft','cancel', 'transferred')), ('picking_id_status', '!=', 'done'), ('process', '!=', 'dismantle')]}"/>
+
+                            <button class="oe_stat_button" name="action_view_dismantle_scrap"
+                                    string="Scrap" type="object" icon="fa-arrows-v"
+                            attrs="{'invisible':['|', '|', ('state', 'in', ('draft','cancel', 'transferred')), ('picking_id_status', '!=', 'done'), ('process', '!=', 'dismantle')]}"/>
+
+
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="product_id" attrs="{'readonly':[('state', 'in', ('done', 'transferred'))]}" force_save="1"/>
+                                <field name="bom_id" force_save="1"
+                                attrs="{'invisible': ['|', ('process', 'in', ('repair','scrap', 'resell')), ('state', '!=', 'transferred')],
+                                                                'required': [('process', '=', ('dismantle')), ('state', '=', 'transferred')], 'readonly':[('state', 'in', ('done'))]}"/>
+                                <label for="product_qty"/>
+                                <div class="o_row">
+                                    <field name="product_qty"
+                                           attrs="{'readonly': ['|', ('has_tracking', '!=', 'none'), ('state', 'in', ('done', 'transferred'))]}"/>
+                                    <field name="product_uom_id" options="{'no_open': True, 'no_create': True}"
+                                           groups="uom.group_uom" attrs="{'readonly': [('state', 'in', ('done', 'transferred'))]}"
+                                           force_save="1"/>
+                                </div>
+                                <field name="picking_id_status" invisible="1"/>
+                                <field name="location_id" options="{'no_create': True}"
+                                       groups="stock.group_stock_multi_locations"/>
+                                <field name="location_dest_id" options="{'no_create': True}"
+                                       groups="stock.group_stock_multi_locations"/>
+                            </group>
+                            <group>
+                                <field name="process" required="1"/>
+                                <field name="scrap_location" options="{'no_create': True}" attrs="{'invisible': [('process', 'in', ('dismantle','repair', 'resell'))],
+                                                                'required': [('process', '=', ('scrap'))]}"/>
+                                <field name="repair_location" options="{'no_create': True}" attrs="{'invisible': [('process', 'in', ('dismantle','scrap', 'resell'))],
+                                                                'required': [('process', '=', ('repair'))]}"/>
+                                <field name="repair_operation_type" options="{'no_create': True}" attrs="{'invisible': [('process', 'in', ('dismantle','scrap', 'resell'))],
+                                                                'required': [('process', '=', ('repair'))]}"/>
+                                <field name="dismantle_location" options="{'no_create': True}" attrs="{'invisible': [('process', 'in', ('repair','scrap', 'resell'))],
+                                                                'required': [('process', '=', ('dismantle'))]}"/>
+                                <field name="dismantle_operation_type" options="{'no_create': True}" attrs="{'invisible': [('process', 'in', ('repair','scrap', 'resell'))],
+                                                                'required': [('process', '=', ('dismantle'))]}"/>
+
+                                <field name="has_tracking" invisible="1"/>
+                                <field name="lot_id"
+                                       attrs="{'invisible': [('has_tracking', '=', 'none')], 'required': [('has_tracking', '!=', 'none')]}"
+                                       groups="stock.group_production_lot"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="user_id" attrs="{'readonly':[('state', 'in', ('done', 'transferred'))]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products" name="dismantle_components"
+                                  attrs="{'invisible': ['|',('state', 'in', ('draft')), ('process', '!=', 'dismantle')]}">
+                                <field
+                                        name="dismantle_product_lines"
+                                        mode="tree"
+                                        attrs="{'readonly': [('state', 'in', ('done','cancel','draft'))]}"
+                                >
+                                    <tree string="Components" editable="bottom">
+                                        <field name="product_id" force_save="1" required="1"/>
+                                        <field name="tracking" invisible="1"/>
+                                        <field name="lot_id"
+                                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                                               attrs="{'required': [('tracking', '!=', 'none')], 'invisible': [('tracking', '=', 'none')]}"/>
+                                        <field name="product_qty" attrs="{'readonly': [('tracking', '!=', 'none')]}"/>
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="product_uom_id"/>
+                                        <field name="destination_location"/>
+                                        <field name="scrap"/>
+                                        <field name="scrap_location_id"/>
+                                        <field name="bom_line_id" invisible="1"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Repair" name="repair_components"
+                                  attrs="{'invisible': [('process', '!=', 'repair')]}">
+
+                                <field
+                                        name="repair_components"
+                                        mode="tree"
+                                        attrs="{'readonly': [('state', 'in', ('done','cancel', 'transferred'))]}"
+                                >
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="product_id"/>
+                                                <field name="product_reference" readonly="1"/>
+                                                <field name="lot_id"/>
+                                                <field name="product_uom_qty"/>
+                                                <field name="product_uom_category_id" invisible="1"/>
+                                                <field name="product_uom"/>
+                                                <field name="user_id" invisible="1"/>
+                                                <field name="company_id" invisible="1"/>
+                                                <field name="date"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                    <tree string="Repair" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="tracking" invisible="1"/>
+                                        <field name="product_reference" readonly="1"/>
+                                        <field name="lot_id"
+                                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                                               attrs="{'required': [('tracking', '!=', 'none')]}"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="product_uom_category_id" invisible="1"/>
+                                        <field name="product_uom"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="date" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="dismantle_tree_view" model="ir.ui.view">
+            <field name="name">dismantle.process.tree</field>
+            <field name="model">dismantle.process</field>
+            <field name="arch" type="xml">
+                <tree string="Dismantle" create="0">
+                    <field name="name" decoration-bf="1"/>
+                    <field name="product_id"/>
+                    <field name="bom_id"/>
+                    <field name="lot_id" groups="stock.group_production_lot"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom_id" groups="uom.group_uom"/>
+                    <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                    <field name="location_dest_id" options="{'no_create': True}"
+                           groups="stock.group_stock_multi_locations"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state" widget='badge' decoration-success="state == 'done'"
+                           decoration-info="state == 'draft'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dismantle_view_search" model="ir.ui.view">
+            <field name="name">dismantle.process.select</field>
+            <field name="model">dismantle.process</field>
+            <field name="arch" type="xml">
+                <search string="Search Dismantle">
+                    <field name="product_id"/>
+                    <group expand="0" string="Filters">
+                        <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                        <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
+                    </group>
+                    <group expand='0' string='Group by...'>
+                        <filter string='Product' name="productgroup" context="{'group_by': 'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="dismantle_form_action" model="ir.actions.act_window">
+            <field name="name">Quality Check</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dismantle.process</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dismantle_tree_view"/>
+            <field name="search_view_id" ref="dismantle_view_search"/>
+        </record>
+
+        <menuitem action="dismantle_form_action" id="menu_dismantle_form_action"
+                  parent="sales_return.menu_sale_return" sequence="1" name="Quality Check"/>
+    </data>
+</odoo>

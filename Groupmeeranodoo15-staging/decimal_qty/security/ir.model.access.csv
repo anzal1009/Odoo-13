@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_decimal_qty_decimal_qty,decimal_qty.decimal_qty,model_decimal_qty_decimal_qty,base.group_user,1,1,1,1

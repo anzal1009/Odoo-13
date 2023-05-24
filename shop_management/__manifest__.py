@@ -1,0 +1,21 @@
+{''
+ 'name': 'Shop Record',
+ 'summary': """This module will add a record to store student details""",
+ 'version': '10.0.1.0.0',
+'sequence':'-20',
+ 'description': """This module will add a record to store student details""",
+ 'author': 'Anzal',
+ 'company': 'Cybrosys Techno Solutions',
+ 'website': 'https://www.cybrosys.com',
+ 'category': 'Tools',
+ 'depends': ['sale'],
+ 'license': 'AGPL-3',
+ 'data': ['security/ir.model.access.csv',
+ 'views/sales.xml',
+ 'views/staff.xml',
+          ],
+ 'demo': [],
+ 'installable': True,
+ 'auto_install': False,
+ 'application' : True
+ }

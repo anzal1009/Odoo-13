@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+<record id="report_product_label1" model="ir.actions.report">
+            <field name="name">Product Label Barcode</field>
+            <field name="model">product.labels</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">barcode_label_print.barcode_label1_product_view</field>
+            <field name="report_file">barcode_label_print.barcode_label1_product_view</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+       <record id="report_product_label2" model="ir.actions.report">
+            <field name="name">Product Label Barcode</field>
+            <field name="model">product.labels</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">barcode_label_print.barcode_label2_product_view</field>
+            <field name="report_file">barcode_label_print.barcode_label2_product_view</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+       <record id="report_product_label3" model="ir.actions.report">
+            <field name="name">Product Label Barcode</field>
+            <field name="model">product.labels</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">barcode_label_print.barcode_label3_product_view</field>
+            <field name="report_file">barcode_label_print.barcode_label3_product_view</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+      <record id="report_product_label4" model="ir.actions.report">
+            <field name="name">Product Label Barcode</field>
+            <field name="model">product.labels</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">barcode_label_print.barcode_label4_product_view</field>
+            <field name="report_file">barcode_label_print.barcode_label4_product_view</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+  </data>
+</odoo>

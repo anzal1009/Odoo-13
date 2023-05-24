@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report
+            id="report_appointment_receipt"
+            string="Appointment Card"
+            model="hospital.appoinment"
+            report_type="qweb-pdf"
+            name="hospitl_management.appointment_receipt"
+            file="hospitl_management.appointment_receipt"/>
+
+
+        <report
+            id="report_patient_id"
+            string="Patient Id"
+            model="hospital.patient"
+            report_type="qweb-pdf"
+            name="hospitl_management.patient_id"
+            file="hospitl_management.patient_id"/>
+
+        <report
+            id="report_appoinment_invoice"
+            string="Appointment Invoice"
+            model="hospital.appoinment"
+            report_type="qweb-pdf"
+            name="hospitl_management.appointment_invoice"
+            file="hospitl_management.appointment_invoice"/>
+
+
+
+
+
+
+
+</odoo>
+

@@ -1,0 +1,194 @@
+<odoo>
+    <data>
+        <template id="warranty_registration_portal_page" name="Warranty Registration">
+            <t t-call="portal.portal_layout">
+                <script type="text/javascript"
+                        src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        $('.btn.btn-primary.warranty').hide();
+                        change();
+                    });
+                    document.getElementById("checking").onclick = function() {handleOnClick()};
+                    function handleOnClick() {
+                        if($("#checking").is(':checked'))
+                        {
+                            $('.btn.btn-primary.warranty').show();
+                        }
+                        else
+                        {
+                            $('.btn.btn-primary.warranty').hide();
+                        }
+                    }
+
+                </script>
+                <div class="oe_structure">
+                    <div class="container">
+
+                        <div class="row">
+                            <div>
+                                <span style="width:100%;height:350px;overflow:scroll;">
+                                    <t t-raw="terms_and_conditions"/>
+                                </span>
+                                <br/>
+                                <input type="checkbox" id="checking" name="terms_and_conditions"
+                                       t-att-value="terms_and_conditions" onclick="handleOnClick()"/>
+                                <label for="terms_and_conditions">I Agree with The Terms &amp; Conditions </label>
+                            </div>
+
+                        </div>
+                        <!--                        <br/>-->
+                        <center>
+                            <h3>Warranty Registration</h3>
+                        </center>
+                        <br/>
+                        <div class="row">
+                            <section id="forms" class="col-12">
+                                <span class="hidden" data-for="warranty_registration_form"
+                                      t-att-data-values="{'lot_no': lot_no}"/>
+                                <form id="warranty_registration_form"
+                                      action="/wr_form/submit" method="post"
+                                      class="s_website_form container-fluid mt32" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label class="col-form-label" for="product_name">Product</label>
+                                            <input type="text" name="product_name"
+                                                   class="form-control o_website_form_input" required="1"
+                                                   t-att-value="product_details.name" readonly="1"/>
+                                            <input type="hidden" id="product_id" name="product_id"
+                                                   t-att-value="product_details.id"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="col-form-label" for="product_serial">Serial</label>
+                                            <input type="text" name="product_serial"
+                                                   class="form-control o_website_form_input" required="1"
+                                                   t-att-value="serial_number" readonly="1"/>
+<!--                                                   t-att-value="product_details.serial_no" readonly="1"/>-->
+                                            <input type="hidden" id="lot_no" name="lot_no"
+                                                   t-att-value="lot_no"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label class="col-form-label" for="customer_name">Name</label>
+                                            <input type="text" name="customer_name"
+                                                   class="form-control o_website_form_input" required="1"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="col-form-label" for="phone">Phone No.</label>
+                                            <input type="text" name="phone"
+                                                   class="form-control o_website_form_input"
+                                                   required="1"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="col-form-label" for="email">Email</label>
+                                            <input type="text" name="email"
+                                                   class="form-control o_website_form_input"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label class="col-form-label" for="state_id">State</label>
+                                            <select name="state_id" class="form-control" required="1">
+                                                <t t-foreach="states or []" t-as="state">
+                                                    <option t-att-value="state.id">
+                                                        <t t-esc="state.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="col-form-label" for="city">City</label>
+                                            <input type="text" name="city"
+                                                   class="form-control o_website_form_input"
+                                                   required="1"/>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="col-form-label" for="pincode">Pincode</label>
+                                            <input type="text" name="pincode"
+                                                   class="form-control o_website_form_input"
+                                                   required="1"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="col-form-label" for="purchase_date">Purchase Date
+                                            </label>
+                                            <input type="date" name="purchase_date"
+                                                   class="form-control datetimepicker-input o-purchase-datetimepicker"
+                                                   data-date-format="DD-MM-YYYY" required="1"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="col-form-label" for="invoice_mrp_file">Upload Invoice
+                                                Image and MRP Sticker
+                                            </label>
+                                            <input type="file" id="invoice_mrp_file" name="invoice_mrp_file"
+                                                   accept=".jpg, .jpeg, .png, .pdf" multiple="true" required="1"
+                                                   class="form-control o_input_file"/>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <br/>
+
+                                            <input type="checkbox" id="contact_me" name="contact me"
+                                                   value="True" required="1"/>
+                                            <label for="contact_me">I hereby give my consent to contact me via
+                                                email, message, WhatsApp or call
+                                                for timely assistance
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="margin-left:50%;">
+                                        <div class="col-12">
+                                            <button type="submit" id="btnSubmit" name="helpdesk_form_submit"
+                                                    class="btn btn-primary warranty" visibility="hidden">
+                                                Submit
+                                            </button>
+
+                                            <!--                                            <input id="btnSubmit" type="button" value="Submit" disabled="disabled" name="helpdesk_form_submit" class="btn btn-primary warranty"/>-->
+                                            <!--                                        <br/>-->
+                                        </div>
+                                    </div>
+
+                                    <!--                                            <div class="form-group row">-->
+                                    <!--                                                <div class="col-12" align="center">-->
+                                    <!--                                                    <button type="submit"-->
+                                    <!--                                                            class="btn btn-primary btn-lg o_website_form_send o_default_snippet_text"-->
+                                    <!--                                                    name="helpdesk_form_submit">-->
+                                    <!--                                                        Submit-->
+                                    <!--                                                    </button>-->
+                                    <!--        &lt;!&ndash;                                            <span id="o_website_form_result"></span>&ndash;&gt;-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="warranty_registration_submitted" name="Warranty Registration Submitted">
+            <t t-call="portal.portal_layout">
+                <div class="oe_structure">
+                    <div class="container">
+                        <br/>
+                        <center>
+                            <h5>Thank you,
+                                <br/>
+                                Warranty registration has been completed.
+                            </h5>
+                        </center>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

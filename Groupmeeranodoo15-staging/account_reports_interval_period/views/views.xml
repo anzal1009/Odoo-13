@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <template id="aged_partner_balance_search_template" inherit_id="account_reports.search_template_date_filter">
+            <xpath expr="//div/div[@data-filter='custom_filter_date']/button[@data-filter='custom']" position="before">
+                <t t-if="options['date'].get('enable_interval')">
+                    <t t-if="options['date']['enable_interval'] == True">
+                        <label class="custom-interval1" for="interval">Interval 1:</label>
+                        <div class="form-group custom-interval1">
+                            <div class='js_account_reports_interval' t-att-data-default-value="options['date']['interval']">
+                                <input type='text' class="o_interval_input" name="interval" id="o_interval_input" />
+                            </div>
+                        </div>
+                        <label class="custom-interval2" for="interval2">Interval 2:</label>
+                        <div class="form-group custom-interval2">
+                            <div class='js_account_reports_interval2' t-att-data-default-value="options['date']['interval2']">
+                                <input type='text' class="o_interval_input2" name="interval2" id="o_interval_input2" />
+                            </div>
+                        </div>
+                        <label class="custom-interval3" for="interval3">Interval 3:</label>
+                        <div class="form-group custom-interval3">
+                            <div class='js_account_reports_interval3' t-att-data-default-value="options['date']['interval3']">
+                                <input type='text' class="o_interval_input3" name="interval3" id="o_interval_input3" />
+                            </div>
+                        </div>
+                        <label class="custom-interval4" for="interval4">Interval 4:</label>
+                        <div class="form-group custom-interval4">
+                            <div class='js_account_reports_interval4' t-att-data-default-value="options['date']['interval4']">
+                                <input type='text' class="o_interval_input4" name="interval4" id="o_interval_input4" />
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

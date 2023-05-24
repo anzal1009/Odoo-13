@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_restrict_je_cash_bank_restrict_je_cash_bank,restrict_je_cash_bank.restrict_je_cash_bank,model_restrict_je_cash_bank_restrict_je_cash_bank,base.group_user,1,1,1,1

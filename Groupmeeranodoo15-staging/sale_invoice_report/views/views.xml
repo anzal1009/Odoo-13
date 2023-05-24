@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="view_sale_invoice_report_wizard" model="ir.ui.view">
+            <field name="name">sale.invoice.report.wizard.view</field>
+            <field name="model">sale.invoice.report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group colspan="4" attrs="{'invisible': [('file', '!=', False)]}">
+                        <group>
+                            <field name="start_date"/>
+                            <field name="remove_freebies"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="file" invisible="1"/>
+                        <separator string="Report Generated" colspan="4"
+                                   attrs="{'invisible': [('file', '==', False)]}"/>
+                        <p attrs="{'invisible': [('file', '==', False)]}">
+                            Here is the Excel Report:
+                            <field name="document" filename="file" attrs="{'invisible': [('file', '==', False)]}"
+                                   readonly="1"/>
+                        </p>
+                    </group>
+
+                    <footer>
+<!--                        <button string="Print Excel" name="print_excel_report" type="object" class="oe_highlight" icon="fa-print" class="btn-primary" attrs="{'invisible': [('file', '!=', False)]}"/>-->
+                        <button name="print_excel_report" string="Print Excel" type="object" icon="fa-print" class="btn-primary" attrs="{'invisible': [('file', '!=', False)]}"/>
+                        <t attrs="{'invisible': [('file', '!=', False)]}">OR</t>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_invoice_report_wizard" model="ir.actions.act_window">
+            <field name="name">Base Report</field>
+            <field name="res_model">sale.invoice.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+                id="menu_sale_invoice_report_wizard"
+                name="Base Report"
+                parent="sale.menu_sale_report"
+                action="action_sale_invoice_report_wizard"
+        />
+    </data>
+</odoo>

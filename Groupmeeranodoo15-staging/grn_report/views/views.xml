@@ -1,0 +1,67 @@
+<odoo>
+  <data>
+
+	  <record id="view_grn_report_excel" model="ir.ui.view">
+		<field name="name">view.grn.report.excel</field>
+		<field name="model">grn.report.excel</field>
+		<field name="arch" type="xml">
+			<form string="Genrated xls File">
+				<group>
+					<field name="file_name" invisible="1"/>
+					<field name="excel_file" readonly="1" filename="file_name"/>
+				</group>
+				 <footer>
+					<button string="Cancel" class="oe_link" special="cancel" />
+				</footer>
+			</form>
+		</field>
+ 	</record>
+  <record id="view_grn_report_wizard" model="ir.ui.view">
+		<field name="name">grn.report.wizard.view</field>
+		<field name="model">grn.report.wizard</field>
+		<field name="arch" type="xml">
+			<form string="GRN Report">
+
+				<group colspan="4">
+					<group>
+						<field name="start_date"/>
+					</group>
+					<group>
+						<field name="end_date"/>
+					</group>
+
+				</group>
+				<group>
+					<field name="company_id"/>
+					<field name="vendor_id"/>
+				</group>
+
+
+				<footer>
+					<button string="Print Excel" name="print_exl_report" type="object" class="oe_highlight"/>
+					or
+					<button string="Cancel" class="oe_link" special="cancel" />
+				</footer>
+		   </form>
+		</field>
+	</record>
+
+	<record id="action_grn_report_wizard" model="ir.actions.act_window">
+		<field name="name">GRN Report</field>
+		<field name="res_model">grn.report.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_grn_report_wizard"/>
+		<field name="target">new</field>
+	</record>
+	<menuitem
+		id="menu_for_grn_report"
+		name="GRN Report"
+		parent="stock.menu_warehouse_report"
+		action="action_grn_report_wizard"
+	   />
+<!--		parent="sale.menu_sale_report"-->
+<!--	  		parent="stock.menu_warehouse_report"-->
+<!---->
+
+  </data>
+</odoo>

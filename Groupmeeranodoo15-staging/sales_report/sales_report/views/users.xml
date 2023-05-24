@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="sales_report_view_area_users_form">
+        <field name="name">Users Form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//notebook" position="inside">-->
+<!--                <page string="Target" name="target">-->
+<!--                    <group>-->
+<!--                    <group>-->
+                  <xpath expr="//page[@name='preferences']" position="after">
+                    <page string="Target" name="target">
+                        <group>
+                            <field name="area_id"/>
+
+                           <!--  <field name="unit"/>
+                            <field name="value"/>
+                            <field name="collection"/> -->
+                        </group>
+                        <field name="sale_month_id">
+                                <tree string="Month" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="year" force_save="1"/>
+<!--                                    <field name="first_date"/>-->
+<!--                                    <field name="start_date"/>-->
+                                     <field name="unit"/>
+                                    <field name="value"/>
+                                    <field name="collection"/>
+                                </tree>
+                            </field>
+                    </page>
+                  </xpath>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="sales_report_area_users_form">
+        <field name="name">partner Form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='user_id']" position="after">
+                 <field name="sales_manager"/>
+                <field name="location_area"/>
+                <field name="is_distributor"/>
+            </xpath>
+        </field>
+     </record>
+
+     <record id="sales_report_country_state_form_inherit" model="ir.ui.view">
+        <field name="name">report.country.state.form.inhert</field>
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="head"/>
+                <field name="regional_manager"/>
+            </field>
+        </field>
+    </record>
+
+
+
+</odoo>

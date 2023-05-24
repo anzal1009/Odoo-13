@@ -1,0 +1,20 @@
+{''
+ 'name': 'Staff Record',
+ 'summary': """This module will add a record to store staff details""",
+ 'version': '10.0.1.0.0',
+ 'description': """This module will add a record to store staff details""",
+ 'author': 'Anzal',
+ 'company': 'Cybrosys Techno Solutions',
+ 'website': 'https://www.cybrosys.com',
+ 'category': 'Tools',
+ 'depends': ['base'],
+ 'license': 'AGPL-3',
+ 'data': ['security/ir.model.access.csv',
+  'views/staff.xml',
+  'views/driver.xml',
+          ],
+ 'demo': [],
+ 'installable': True,
+ 'auto_install': False,
+ 'application' : True
+ }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="product_label_layout_form" model="ir.ui.view">
+        <field name="name">product.labels.form</field>
+        <field name="model">product.labels</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group id="print_format">
+                        <field name="custom_quantity"/>
+                        <field name="print_format" widget="radio"/>
+                    </group>
+                    <group>
+
+
+                        <field name="company_id"/>
+                        <field name="manual_print" widget="radio"/>
+                        <field name="serial_no" attrs="{'invisible': [('manual_print', '!=', 'manual')]}"/>
+<!--                        <field name="extra_html" widget="html" attrs="{'invisible': [('print_format', 'not in', ('dymo', '2x7xprice'))]}"/>-->
+                    </group>
+                </group>
+
+                <group>
+                    <group id="product_details">
+                        <field name="product_tmpl_id" invisible="1"/>
+                        <field name="product_id"/>
+                        <field name="product_template_attribute_value_ids"/>
+                         <field name="categ_id"/>
+                         <field name="product_mrp"/>
+                         <field name="label_category"/>
+                         <field name="price_list_item" invisible="1"/>
+                        <field name="sub_categ_id" invisible="1"/>
+                    </group>
+                     <group id="product_details">
+                        <field name="dimensions"/>
+                         <field name="content"/>
+                         <field name="date"/>
+                         <field name="label1_state" attrs="{'invisible':[('print_format','not in',('label1','label4'))]}"/>
+<!--                         <field name="label1_state" attrs="{'invisible':[('print_format','!=','label1')]}"/>-->
+                          <field name="label2_state" attrs="{'invisible':[('print_format','!=','label2')]}"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="process" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+          <record id="label_setup_action_window" model="ir.actions.act_window">
+              <field name="name">Labels</field>
+            <field name="res_model">product.labels</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+       <menuitem name="Product Label" id="label_setup" sequence="100" action="label_setup_action_window" web_icon="barcode_label_print,static/description/icon.png"/>
+
+
+  </data>
+</odoo>

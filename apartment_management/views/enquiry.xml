@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_enquiry_tree" model="ir.ui.view">
+            <field name="name">apartment.enquiry.tree</field>
+            <field name="model">apartment.enquiry</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree>
+<!--                    string="Enquiry" decoration-warning="state == 'bo'"-->
+<!--                      decoration-success="state == 'so'" decoration-danger="state == 'un'">-->
+                    <field name="name_seq"/>
+                    <!--                    <field name="eqname"/>-->
+                    <field name="name"/>
+                    <field name="state"/>
+
+<!--                    <field name="email"/>-->
+                    <field name="phone"/>
+                    <field name="camount" attrs="{'invisible':[('state','!=','so')]}" optional="hide" sum="Total"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_enquiry_form" model="ir.ui.view">
+            <field name="name">apartment.enquiry.form</field>
+            <field name="model">apartment.enquiry</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Enquiry">
+
+                    <header>
+                        
+                        <button id="button_booked" name="action_booked" string="Book" type="object" states="un"/>
+                        <button id="button_sold" name="action_sold" string="Sold" class="btn-primary" type="object"
+                                states="un,bo"/>
+                        <field name="state" widget="statusbar" invisible='1'/>
+                    </header>
+
+                    <sheet>
+
+                        <widget name="web_ribbon" title="Sold" attrs="{'invisible': ['|', ('state', '!=', 'so')]}"/>
+                        <!--                        <widget name="web_ribbon" title="In Payment" attrs="{'invisible': ['|', ('invoice_payment_state', '!=', 'in_payment'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>-->
+
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name_seq" readonly="1"/>
+
+                            </h1>
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="name" required="1" placeholder="Customer Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <br></br>
+                        <group col="4" colspan="4" name="customer_detail">
+
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                            <field name="age"/>
+
+                            <!--                                    <field name="dist"/>-->
+
+                        </group>
+                        <!--                        <div class="enquiry">-->
+                        <!--                            <group col="2" colspan="2">-->
+                        <!--                                -->
+                        <!--                            </group>-->
+
+                        <!--                        </div>-->
+                        <br></br>
+
+                        <notebook colspan="4">
+                            <page name="pers_info" string="Enquiry">
+
+                                <group>
+                                    <field name="desc"/>
+                                </group>
+                            </page>
+
+                            <page name="perso_info" string="Flat Information">
+                                <group col="4" colspan="4" name="custo_detail">
+                                    <field name="projname"/>
+                                    <field name="dist"/>
+                                    <field name="states"/>
+                                    <field name="flatname"/>
+                                    <field name="bloname"/>
+                                    <field name="floor"/>
+                                    <field name="utype"/>
+                                    <field name="price"/>
+
+                                </group>
+                                <!--                                <group>-->
+                                <!--                                    <button id="button_booked" name="action_bookedey" string="Book" type="object"/>-->
+                                <!--                                </group>-->
+                            </page>
+                            <page name="perso_info" string="Sales Information">
+                                <group col="4" colspan="4" name="custo_detail">
+                                    <field name="sperson"/>
+                                    <field name="cpercent"/>
+                                    <field name="advance"/>
+                                    <field name="camount"/>
+<!--                                    <field name="cpercentage"/>-->
+                                </group>
+                            </page>
+
+
+<!--                            <page name="activity_info" string="Activity">-->
+<!--                                <field name="data_line">-->
+
+<!--                                    <tree editable="bottom">-->
+<!--                                        <field name="sno"/>-->
+<!--                                        <field name="date"/>-->
+<!--                                        <field name="activity"/>-->
+<!--&lt;!&ndash;                                        <field name="descr"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                        <field name="total"/>&ndash;&gt;-->
+
+<!--                                        <field name="data" invisible='1'/>-->
+<!--                                    </tree>-->
+<!--                                    <form editable="bottom">-->
+<!--                                        <group>-->
+<!--                                            <field name="sno"/>-->
+<!--                                            <field name="date"/>-->
+<!--                                            <field name="activity"/>-->
+
+<!--&lt;!&ndash;                                            <field name="descr"/>&ndash;&gt;-->
+
+<!--                                        </group>-->
+<!--                                    </form>-->
+<!--                                </field>-->
+<!--                            </page>-->
+
+
+
+
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_enquiry">
+            <field name="name">Enquiry</field>
+            <field name="res_model">apartment.enquiry</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Enquiry</p>
+            </field>
+        </record>
+        <menuitem id="apartment_customer" name="Apartments"/>
+        <menuitem id="enquiry_menu" name="Enquiry" parent="customer_menu" action="action_view_enquiry" sequence="-10"/>
+    </data>
+</odoo>

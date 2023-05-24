@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+
+
+
+
+
+
+
+        <record id="view_enquiry_tree" model="ir.ui.view">
+            <field name="name">plot.enquiry.tree</field>
+            <field name="model">plot.enquiry</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Enquiry">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="addres"/>
+                    <field name="location"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_enquiry_form" model="ir.ui.view">
+            <field name="name">plot.enquiry.form</field>
+            <field name="model">plot.enquiry</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Enquiry">
+                    <sheet>
+
+
+
+
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_enquiry" class="oe_stat_button" type="object"
+                                icon="fa-cogs">
+                            <div class="o_stat_info">
+                                <field name="location_count" class="oe_stat_value"/>
+                                <span class="o_stat_text">location</span>
+                            </div>
+                        </button>
+
+                    </div>
+
+
+
+                        <div class="oe_title">
+                            <h1>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field name="name" required="1" placeholder="Full Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="other_info" string="Other Information">
+                                <group col="4" colspan="4" name="other_detail">
+                                    <field name="phone"/>
+                                    <field name="addres"/>
+                                    <field name="location"/>
+                                    <field name="location_count"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_enquiry">
+            <field name="name">Enquiry</field>
+            <field name="res_model">plot.enquiry</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Customer</p>
+            </field>
+        </record>
+        <menuitem id="plot_menu" name="Plot" web_icon="shop_management,static/description/icon.png"/>
+        <menuitem id="enquiry_menu" name="Enquiry" parent="plot_menu" action="action_view_enquiry"/>
+    </data>
+</odoo>

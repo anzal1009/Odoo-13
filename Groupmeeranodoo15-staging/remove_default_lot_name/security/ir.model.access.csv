@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_remove_default_lot_name_remove_default_lot_name,remove_default_lot_name.remove_default_lot_name,model_remove_default_lot_name_remove_default_lot_name,base.group_user,1,1,1,1

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_service_po_print_service_po_print,service_po_print.service_po_print,model_service_po_print_service_po_print,base.group_user,1,1,1,1

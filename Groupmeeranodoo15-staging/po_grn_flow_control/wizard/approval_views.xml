@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="act_stock_picking_approval" model="ir.actions.act_window">
+            <field name="name">Receipt Approval</field>
+            <field name="res_model">stock.picking.qty.approval</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="view_stock_picking_approval_form" model="ir.ui.view">
+            <field name="name">Receipt Approval</field>
+            <field name="model">stock.picking.qty.approval</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="picking_id" invisible="1" force_save="1"/>
+
+                    <group>
+                        <field name="reason" required="1"/>
+                    </group>
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_send_for_approval" string="Send for Approval" type="object" class="btn-primary"
+                                data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

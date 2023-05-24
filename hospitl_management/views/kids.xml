@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_view_kids">
+        <field name="name">Kids</field>
+        <field name="res_model">hospital.patient</field>
+        <!--            <field name="view_type">form</field>-->
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('age','&lt;=',18)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create new Patient</p>
+        </field>
+    </record>
+    <menuitem id="hospital_kids" name="Kids" parent="hospital_patients" action="action_view_kids" sequence="20"/>
+</odoo>

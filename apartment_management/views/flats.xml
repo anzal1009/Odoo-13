@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_flats_tree" model="ir.ui.view">
+            <field name="name">apartment.flats.tree</field>
+            <field name="model">apartment.flats</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Flat Units" decoration-warning="state == 'bo'"
+                      decoration-success="state == 'so'" decoration-danger="state == 'un'">
+                    <field name="name"/>
+                    <field name="projname"/>
+                    <field name="utype"/>
+                    <field name="state"/>
+                    <!--                    <field name="floors"/>-->
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_flats_form" model="ir.ui.view">
+            <field name="name">apartment.flats.form</field>
+            <field name="model">apartment.flats</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Flat Unit">
+                    <header>
+                        <button id="button_booked" name="action_booked" string="Booked" states="un" type="object" invisible='1' />
+                        <button id="button_sold" name="action_sold" string="Sold" class="btn-primary" states="un,bo"
+                                type="object" invisible='1'/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+
+                        <widget name="web_ribbon" title="Sold" attrs="{'invisible': ['|', ('state', '!=', 'so')]}"/>
+
+                        <h1>Flat Details</h1>
+                        <br></br>
+                        <br></br>
+
+                        <div class="name">
+                            <h1>
+                                <group col="2" colspan="2" name="fname">
+
+                                    <group>
+                                        <field name="name"/>
+                                    </group>
+
+                                </group>
+                            </h1>
+                        </div>
+                        <div class="sub">
+                            <group col="4" colspan="4" name="customer_detail">
+
+                                <field name="projname"/>
+                                <field name="floor"/>
+                                <field name="utype"/>
+                                <field name="bloname"/>
+                                <field name="dist"/>
+                                <!--                                <field name="block"/>-->
+                                <!--                                <field name="floors"/>-->
+                            </group>
+                            <br></br>
+                            <br></br>
+                            <notebook colspan="4">
+                                <page name="other" string="Other Info">
+                                    <group>
+                                        <field name="desc"/>
+                                    </group>
+                                </page>
+                                <page name="thr" string="Price">
+                                    <group col="4" colspan="4" name="otr_details">
+                                        <field name="price"/>
+                                        <field name="misc"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </div>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="flats_kanban" model="ir.ui.view">
+            <field name="name">apartment.flats.kanban</field>
+            <field name="model">apartment.flats</field>
+            <field name="arch" type="xml">
+                <kanban decoration-info="state == 'bo'"
+                        decoration-success="state == 'so'" decoration-danger="state == 'un'">
+
+                    <!--                    <widget name="web_ribbon" title="Sold" attrs="{'invisible': ['|', ('state', '!=', 'so')]}" bg_color="bg-danger"/>-->
+
+                    <field name="name"/>
+                    <field name="projname"/>
+                    <field name="utype"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <ul style="list-style-type:none; padding:0px 20px;">
+                                    <li>
+                                        <h2>
+                                            <field name="name"/>
+                                        </h2>
+                                    </li>
+                                    <li>
+                                        <field name="projname"/>
+                                    </li>
+                                    <li>
+                                        <field name="utype"/>
+                                    </li>
+                                     <li>
+                                        <field name="floor"/>
+                                    </li>
+
+
+                                </ul>
+                                <!--                                <t t-foreach="docs" t-as="production">-->
+                                <!--                                    <t t-if="state == 'so'">-->
+
+
+                                <!--                                 <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" options="{'color_field': 'color'}" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>-->
+
+
+                                <div class="asd"
+                                     style="text-align:center; padding:0 25px; height:25px; font-size:10px; line-height:25px; background:green; color:white;
+                                        margin-left:75%; white-space:nowrap; border-radius: 25px;"
+                                     attrs="{'invisible': ['|',('state','=','so'),('state','=','bo')]}">
+                                    <field name="state"/>
+                                </div>
+                                <div class="qwe"
+                                     style="text-align:center; padding:0 25px; height:25px; font-size:10px; line-height:25px; background:red; color:white;
+                                        margin-left:75%; white-space:nowrap; border-radius: 25px;"
+                                     attrs="{'invisible': ['|',('state','=','un'),('state','=','bo')]}">
+                                    <field name="state"/>
+                                </div>
+                                <div class="zxc"
+                                     style="text-align:center; padding:0 25px; height:25px; font-size:10px; line-height:25px; background:orange; color:white;
+                                        margin-left:75%; white-space:nowrap; border-radius: 25px;"
+                                     attrs="{'invisible': ['|',('state','=','un'),('state','=','so')]}">
+                                    <field name="state"/>
+                                </div>
+
+                                <!--                                           </t>-->
+
+                                <!--                                            <field name="state" title="Sold" attrs="{'invisible': ['|', ('state', '!=', 'so')]}" style="color:Red;" />-->
+                                <!--                                            <field name="state" style="background:Blue;" attrs="{'readonly':[('state', '=', 'so')]}"/>-->
+
+                                <!--                                <field name="state" string="Status" style="color: red;"-->
+                                <!--                                       attrs="{'invisible': ['|',['state','=','so']]}"/>-->
+                                <!--                                <field name="state" string="Status" style="color: green;"-->
+                                <!--                                       attrs="{'invisible': ['|',['state','=','bo']]}"/>-->
+                                <!--                                <field name="state" string="Status" style="color: purple;"-->
+                                <!--                                       attrs="{'invisible': ['|',['state','=','un']]}"/>-->
+
+
+                                <!--                                </t>-->
+                            </div>
+                        </t>
+
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="apartment_flats_search" model="ir.ui.view">
+            <field name="name">apartment_flats_search</field>
+            <field name="model">apartment.flats</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <!--                    <field name="projname"/>-->
+                    <field name="utype"/>
+                    <separator/>
+                    <filter string="Sold" name="Sold" domain="[('state','=','so')]"/>
+                    <filter string="Un sold" name="Unsold" domain="[('state','=','un')]"/>
+                    <filter string="Booked" name="Booked" domain="[('state','=','bo')]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Project" name="projname" context="{'group_by':'projname'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_view_flats">
+            <field name="name">Flats</field>
+            <field name="res_model">apartment.flats</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{"search_default_projname":1}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Enter The Details</p>
+            </field>
+        </record>
+        <!--          <menuitem id="configure_menu" name="Cofiguration" parent="apartment_customer" />-->
+        <menuitem id="configure_menu5" name="Flats" parent="configure_menu" action="action_view_flats" sequence="50"/>
+    </data>
+</odoo>
+
+

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_salesteam_tree" model="ir.ui.view">
+            <field name="name">apartment.salesteam.tree</field>
+            <field name="model">apartment.salesteam</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Sales team">
+                    <field name="name_seq"/>
+                    <field name="name"/>
+                    <field name="dept"/>
+                    <!--                    <field name="block"/>-->
+                    <!--                    <field name="floors"/>-->
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_salesteam_form" model="ir.ui.view">
+            <field name="name">apartment.salesteam.form</field>
+            <field name="model">apartment.salesteam</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Sales team">
+                    <sheet>
+
+
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_sales" class="oe_stat_button" type="object"
+                                    icon="fa-handshake-o">
+                                <div class="o_stat_info">
+<!--                                    <field name="sales_count" class="oe_stat_value"/>-->
+                                    <span class="o_stat_text">Sold</span>
+                                </div>
+                            </button>
+                             <button name="action_open_sales1" class="oe_stat_button" type="object"
+                                    icon="fa-handshake-o">
+                                <div class="o_stat_info">
+                                    <field name="sales_count" class="oe_stat_value"/>
+                                    <span class="o_stat_text">Sales</span>
+                                </div>
+                            </button>
+
+                        </div>
+
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name_seq" readonly="1"/>
+                            </h1>
+                            <h2>
+                                <table>
+                                    <tr>
+                                        <td style="padding-left:0px;">
+                                            <field name="name" required="1" placeholder="Full Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h2>
+                        </div>
+                        <br></br>
+                        <div class="sub">
+                            <group col="4" colspan="4" name="customer_detail">
+                                <field name="addres"/>
+                                <field name="phone"/>
+                                <field name="dept"/>
+                                <field name="email"/>
+<!--                                <field name="commission"/>-->
+                                <field name="sales_count" invisible='1'/>
+                                <!--                                <field name="block"/>-->
+                                <!--                                <field name="floors"/>-->
+                            </group>
+                        </div>
+
+                        <notebook colspan="4">
+
+                            <page name="activity_info" string="Sales">
+                                <field name="data_line">
+
+                                    <tree editable="bottom">
+                                        <field name="eqid"/>
+                                        <field name="flat"/>
+                                        <field name="commission"/>
+                                        <!--                                        <field name="descr"/>-->
+
+                                        <!--                                        <field name="total"/>-->
+
+                                        <field name="data" invisible='1'/>
+                                    </tree>
+                                    <form editable="bottom">
+                                        <group>
+                                            <field name="eqid"/>
+                                            <field name="flat"/>
+                                            <field name="commission"/>
+                                            <!--                                            <field name="descr"/>-->
+
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+
+
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+
+
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_salesteam">
+            <field name="name">Sales Team</field>
+            <field name="res_model">apartment.salesteam</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Employee</p>
+            </field>
+        </record>
+        <!--          <menuitem id="configure_menu" name="Cofiguration" parent="apartment_customer" />-->
+        <menuitem id="sales_menu2" name="Sales team" parent="sales_menu" action="action_view_salesteam" sequence="20"/>
+    </data>
+</odoo>
+
+

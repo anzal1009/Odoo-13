@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+
+        <record id="action_dismantle_product_moves" model="ir.actions.act_window">
+            <field name="name">Quality Check</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dismantle.process</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('sale_return_id', '=', active_id)]
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    There's no Quality Check yet.
+                </p>
+            </field>
+        </record>
+
+        <record id="inherited_sales_return_form_view" model="ir.ui.view">
+            <field name="name">sales.return.form</field>
+            <field name="model">sales.return</field>
+            <field name="inherit_id" ref="sales_return.sales_return_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/button[@name='action_view_picking']" position="after">
+                    <button class="oe_stat_button" name="%(action_dismantle_product_moves)d"
+                                    string="QC" type="action" icon="fa-thumbs-up"
+                            attrs="{'invisible':['|', ('state', 'in', ('draft','cancel')), ('picking_id_status', '!=', 'done')]}">
+                        <field name='dismantle_process_ids' invisible="1"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

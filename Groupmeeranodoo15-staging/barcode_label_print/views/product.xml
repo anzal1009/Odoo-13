@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="label_product_form_hide_cost">
+            <field name="name">product.product.cost</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='uom_id']" position="after">
+<!--                <xpath expr="//field[@name='standard_price']" position="after">-->
+                    <field name="dimensions"/>
+                    <field name="content"/>
+                      <field name="suffix"/>
+                     <field name="serial_no"/>
+                     <field name="label_category"/>
+                     <field name="product_mrp"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+         <record model="ir.ui.view" id="label_product_template_hsn_code">
+        <field name="name">l10n_in.product.template.form.hsn_code</field>
+        <field name="model">product.template</field>
+       <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="label_category"/>
+            </field>
+        </field>
+    </record>
+
+
+
+        <record id="label_print_product_attribute_view_form" model="ir.ui.view">
+        <field name="name">product.attribute.view.form</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form"/>
+        <field name="arch" type="xml">
+            <field name="create_variant" position="after">
+                <field name="label_print"/>
+            </field>
+        </field>
+    </record>
+
+    </data>
+</odoo>

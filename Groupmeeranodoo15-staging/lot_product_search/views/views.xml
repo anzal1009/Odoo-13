@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_stock_picking_view_inherit">
+            <field name="name">stock.picking.view.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_dest_id']" position="after">
+                    <field name="lot_serial_no" attrs="{'invisible':[('picking_type_code', '!=', 'internal')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

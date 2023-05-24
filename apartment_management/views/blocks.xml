@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_blocks_tree" model="ir.ui.view">
+            <field name="name">apartment.blocks.tree</field>
+            <field name="model">apartment.blocks</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Blocks">
+                    <field name="name"/>
+                    <field name="dist"/>
+<!--                    <field name="block"/>-->
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_blocks_form" model="ir.ui.view">
+            <field name="name">apartment.blocks.form</field>
+            <field name="model">apartment.blocks</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Blocks">
+                    <sheet>
+                        <h1>Blocks Registration</h1>
+                        <br></br>
+                        <br></br>
+                        <div class="sub">
+                            <group col="4" colspan="4" name="customer_detail">
+                                <field name="name"/>
+                                <field name="dist"/>
+<!--                                <field name="block"/>-->
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         <record model="ir.actions.act_window" id="action_view_blocks">
+            <field name="name">Blocks</field>
+            <field name="res_model">apartment.blocks</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Blocks</p>
+            </field>
+        </record>
+<!--          <menuitem id="configure_menu" name="Cofiguration" parent="apartment_customer" />-->
+        <menuitem id="configure_menu2" name="Blocks" parent="configure_menu" action="action_view_blocks" sequence="20"/>
+    </data>
+</odoo>
+
+

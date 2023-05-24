@@ -1,0 +1,124 @@
+<odoo>
+    <data>
+        <record id="action_indent_product_moves" model="ir.actions.act_window">
+            <field name="name">Stock Moves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.move.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('move_id.mrp_indent_id', '=', active_id)]
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    There's no product move yet
+                </p>
+            </field>
+        </record>
+
+        <record id="mrp_indent_form_view" model="ir.ui.view">
+            <field name="name">mrp.indent.form.view</field>
+            <field name="model">mrp.indent</field>
+            <field name="arch" type="xml">
+                <form string="MRP Indent" create="0">
+                    <header>
+                        <button name="action_approve" string="Approve" type="object"
+                                class="oe_highlight" groups="manufacturing_indent.group_mrp_indent_manager" states="draft"/>
+<!--                        <button name="action_reject" string="Reject" states="draft" type="object"-->
+<!--                                groups="mo_bom_request.group_mrp_request_manager"/>-->
+                        <button name="action_cancel" string="Cancel" states="draft" type="object"
+                                groups="manufacturing_indent.group_mrp_indent_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,issued,received"
+                               statusbar_colors='{"reject":"red"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="%(action_indent_product_moves)d"
+                                    string="Product Moves" type="action" icon="fa-exchange"
+                            attrs="{'invisible':[('state', 'in', ('draft','cancel',))]}"/>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="origin" force_save="1"/>
+                                <field name="indent_date"/>
+                                <field name="issued_date"/>
+                                <field name="issued_by"/>
+
+                            </group>
+                            <group>
+                                <field name="received_date"/>
+                                <field name="received_by"/>
+                                <field name="location_id" options="{'no_create': True}"
+                                       groups="stock.group_stock_multi_locations" force_save="1" readonly="1"/>
+                                <field name="dest_location_id" options="{'no_create': True}"
+                                       groups="stock.group_stock_multi_locations" force_save="1" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products" name="bom_lines">
+                                <field name="product_lines"
+                                       mode="tree"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                >
+                                    <tree string="Components" editable="bottom">
+                                        <field name="product_id" force_save="1" required="1" readonly="1"/>
+                                        <field name="uom_id" force_save="1" readonly="1"/>
+                                        <field name="tracking" invisible="1"/>
+                                        <field name="lot_id"
+                                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                                               attrs="{'required': [('tracking', '!=', 'none')]}"/>
+                                        <field name="to_consume_qty" readonly="1"/>
+                                        <field name="wip_stock"/>
+                                        <field name="balance_requirements"/>
+                                        <field name="available_qty" />
+                                        <field name="product_qty" force_save="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_indent_tree_view" model="ir.ui.view">
+            <field name="name">mrp.indent.tree.view</field>
+            <field name="model">mrp.indent</field>
+            <field name="arch" type="xml">
+                <tree string="Request" create="0">
+                    <field name="name" decoration-bf="1"/>
+                    <field name="origin"/>
+                    <field name="issued_date"/>
+                    <field name="issued_by"/>
+                    <field name="received_date"/>
+                    <field name="received_by"/>
+                    <field name="state" widget='badge' decoration-success="state == 'received'"
+                           decoration-info="state == 'draft'"/>
+                </tree>
+            </field>
+        </record>
+        <record id="mrp_indent_form_action" model="ir.actions.act_window">
+            <field name="name">MRP Indent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.indent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="mrp_indent_tree_view"/>
+        </record>
+
+        <menuitem action="mrp_indent_form_action" id="menu_mrp_indent_form_action"
+                  parent="stock.menu_stock_warehouse_mgmt" sequence="210" name="MRP Indent"
+                  groups="stock.group_stock_manager"/>
+    </data>
+</odoo>

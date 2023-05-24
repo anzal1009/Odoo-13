@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asset_sequence_number_asset_sequence_number,asset_sequence_number.asset_sequence_number,model_asset_sequence_number_asset_sequence_number,base.group_user,1,1,1,1

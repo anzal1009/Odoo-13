@@ -1,0 +1,577 @@
+<odoo>
+    <data>
+        <template id="eastern_po_print_document">
+            <t t-call="eastern_po_print.eastern_po_print_external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page" style="font-size:12px;">
+                    <style>
+                        tr{
+                        page-break-inside: avoid;
+                        }
+                        td{
+                        padding:0px 3px 0px 3px;
+                        }
+                        table {
+                        width: 100%;
+                        }
+                        table.fixed{
+                        table-layout: fixed;
+                        }
+                        table.fixed td {
+                        overflow: hidden;
+                        }
+                        .en-font{
+                        font-family:FontAwesome;
+                        }
+
+                    </style>
+
+                    <div class="row en-font">
+                        <div class="col-12">
+                            <table style="font-size : 12px;border-collapse:collapse;" width="100%;" cellspacing="0"
+                                   borderspacing="0" class="fixed">
+                                <col style="width: 5%;"/>
+                                <col style="width: 11%;"/>
+                                <col style="width: 25%;"/>
+                                <col style="width: 9%;"/>
+                                <col style="width: 6%;"/>
+                                <col style="width: 10%;"/>
+                                <col style="width: 8%;"/>
+                                <col style="width: 5%;"/>
+                                <col style="width: 8%;"/>
+                                <col style="width: 12%;"/>
+                                <tr>
+                                    <td colspan="10" style="border : 1px solid black;">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img t-if="o.company_id.logo"
+                                                     t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"
+                                                     style="max-height: 60px;"/>
+                                                <br></br>
+                                            </div>
+                                            <div class="col-4"
+                                                 style="text-align: center;line-height: 60px;display: flex;align-items: center;justify-content: center;font-size : 16px; font-weight:bold;">
+                                                <span style="vertical-align: middle;">PURCHASE ORDER</span>
+                                            </div>
+                                            <div class="col-4" style="font-size : 14px;line-height: 30px;">
+                                                <div class="row" style="text-align: center;">
+                                                    <div class="col-4">
+                                                        <span style="vertical-align: middle;">
+                                                            PO No
+                                                            <br/>
+                                                            PO Date
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <span style="vertical-align: middle;">
+                                                            :
+                                                            <br/>
+                                                            :
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <span style="vertical-align: middle;">
+                                                            <t t-esc="o.name"/>
+                                                            <br/>
+                                                            <t t-esc="datetime.datetime.strptime(str(o.date_order), '%Y-%m-%d %H:%M:%S').strftime('%d-%b-%y')"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border : 1px solid black;vertical-align: top;">
+                                        <span style="font-weight:bold;">Bill to:</span>
+                                        <br/>
+                                        <t t-if="o.bill_to_partner_id">
+                                            <span style="font-weight:bold;"
+                                                  t-field="o.bill_to_partner_id.partner_id.name"/>
+                                            <br/>
+                                            <span t-field="o.bill_to_partner_id.partner_id"
+                                                  t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                            <br/>
+                                            <table width="100%" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td width="25%" style="padding:0px;">GST No</td>
+                                                    <td width="5%" style="padding:0px;">:</td>
+                                                    <td width="75%" style="padding:0px;">
+                                                        <span t-field="o.bill_to_partner_id.partner_id.vat"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding:0px;">State Name</td>
+                                                    <td style="padding:0px;">:</td>
+                                                    <td style="padding:0px;">
+                                                        <span t-field="o.bill_to_partner_id.partner_id.state_id.name"/>
+                                                        , Code=
+                                                        <span t-field="o.bill_to_partner_id.partner_id.state_id.code"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding:0px;">CIN</td>
+                                                    <td style="padding:0px;">:</td>
+                                                    <td style="padding:0px;">
+                                                        <span t-field="o.bill_to_partner_id.partner_id.cin"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding:0px;">PAN</td>
+                                                    <td style="padding:0px;">:</td>
+                                                    <td style="padding:0px;">
+                                                        <span t-field="o.bill_to_partner_id.partner_id.pan"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding:0px;">Web</td>
+                                                    <td style="padding:0px;">:</td>
+                                                    <td style="padding:0px;">
+                                                        <span t-field="o.bill_to_partner_id.partner_id.website"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </t>
+                                    </td>
+                                    <td colspan="6" style="border : 1px solid black;vertical-align: top;">
+                                        <span style="font-weight:bold;">To:</span>
+                                        <br/>
+                                        <span style="font-weight:bold;"
+                                              t-field="o.partner_id.name"/>
+                                        <br/>
+                                        <span t-field="o.partner_id"
+                                              t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                        <br/>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td width="25%" style="padding:0px;">Contact No.</td>
+                                                <td width="5%" style="padding:0px;">:</td>
+                                                <td width="70%" style="padding:0px;">
+                                                    <span t-field="o.partner_id.mobile"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">E-mail</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.partner_id.email"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">GST No.</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.partner_id.vat"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;font-weight:bold;">VC</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;font-weight:bold;">
+                                                    <span t-field="o.partner_id.ref"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;font-weight:bold;">Your Ref No.</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;font-weight:bold;">
+                                                    <span t-field="o.partner_ref"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="border : 1px solid black;vertical-align: top;" rowspan="2">
+                                        <span style="font-weight:bold;">Ship to:</span>
+                                        <br/>
+                                        <span style="font-weight:bold;"
+                                              t-field="o.picking_type_id.warehouse_id.partner_id.name"/>
+                                        <br/>
+                                        <span t-field="o.picking_type_id.warehouse_id.partner_id"
+                                              t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                                        <br/>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td width="25%" style="padding:0px;">GST No</td>
+                                                <td width="5%" style="padding:0px;">:</td>
+                                                <td width="70%" style="padding:0px;">
+                                                    <span t-field="o.picking_type_id.warehouse_id.partner_id.vat"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">State Name</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.picking_type_id.warehouse_id.partner_id.state_id.name"/>
+                                                    , Code=
+                                                    <span t-field="o.picking_type_id.warehouse_id.partner_id.state_id.code"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">CIN</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.picking_type_id.warehouse_id.partner_id.cin"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">PAN</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.picking_type_id.warehouse_id.partner_id.pan"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">Web</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.picking_type_id.warehouse_id.partner_id.website"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                    <td colspan="6" style="border : 1px solid black;vertical-align: top;">
+                                        <br/>
+                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td width="25%" style="padding:0px;">Freight</td>
+                                                <td width="5%" style="padding:0px;">:</td>
+                                                <td width="70%" style="padding:0px;">
+                                                    <span t-field="o.freight"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">Payment Terms</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.payment_term_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">Documents</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.document"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">Advance</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.advance"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">Others1</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.other_document1"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding:0px;">Others2</td>
+                                                <td style="padding:0px;">:</td>
+                                                <td style="padding:0px;">
+                                                    <span t-field="o.other_document2"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="border : 1px solid black;vertical-align: top;">
+                                        Kind Attn :
+                                        <span t-field="o.kind_attention"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="10" style="border : 1px solid black;">
+                                        <div class="en-font" style="font-weight:bold;">Dear Sir/ Madam,</div>
+                                        <div class="en-font" style="margin-left:150px;">
+                                            Please Supply the Following Material with References to Your Quotation Cited
+                                            Above.
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="text-align:center;">
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Sl No.
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Material Code
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Description
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        HSN/SAC
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        GST %
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Delivery Date
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Qty
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Uom
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Rate
+                                    </td>
+                                    <td style="text-align:center;vertical-align:middle;border : 1px solid black;">
+                                        Total Value
+                                    </td>
+                                </tr>
+                                <tr t-foreach="o.order_line" t-as="l">
+                                    <td class="en-font"
+                                        style="text-align:center;vertical-align:middle;border:1px solid black;">
+                                        <t t-esc="l_index+1"/>
+                                    </td>
+                                    <td class="en-font"
+                                        style="text-align:center;vertical-align:middle;border:1px solid black;">
+                                        <t t-esc="l.product_id.default_code"/>
+                                    </td>
+                                    <td class="en-font"
+                                        style="border:1px solid black;text-align:left;vertical-align:middle;">
+                                        <span class="en-font" style="text-align:left;vertical-align:middle;">
+                                            <t t-esc="l.product_id.name"/>
+                                            <t t-if="l.product_id.product_template_variant_value_ids">
+                                                <t t-set="display_name"
+                                                   t-value="', '.join(map(lambda x: (x.name), l.product_id.product_template_variant_value_ids))"/>
+                                                (<span t-esc="display_name" t-options="{'widget': 'text'}"/>)
+                                            </t>
+                                        </span>
+                                    </td>
+                                    <td class="en-font"
+                                        style="border:1px solid black;text-align:left;vertical-align:middle;">
+                                        <span class="en-font" style="text-align:center;vertical-align:middle;">
+                                            <t t-esc="l.product_id.l10n_in_hsn_code"/>
+                                        </span>
+                                    </td>
+                                    <td class="en-font"
+                                        style="border:1px solid black;text-align:center;vertical-align:middle;">
+                                        <span class="en-font">
+                                            <t t-esc="', '.join(map(lambda x: x.description, l.taxes_id))"/>
+                                        </span>
+                                    </td>
+                                    <td class="en-font"
+                                        style="text-align:center;vertical-align:middle;border:1px solid black;">
+                                        <t t-if="l.date_planned">
+                                            <t t-esc="datetime.datetime.strptime(str(l.date_planned), '%Y-%m-%d %H:%M:%S').strftime('%d-%m-%Y')"/>
+
+                                        </t>
+                                    </td>
+                                    <td class="en-font"
+                                        style="text-align:right;vertical-align:middle;border:1px solid black;">
+                                        <span t-esc="'{:,.2f}'.format(l.product_qty)"/>
+                                    </td>
+                                    <td class="en-font"
+                                        style="text-align:center;vertical-align:middle;border:1px solid black;">
+                                        <span class="en-font" style="text-align:center;vertical-align:middle;">
+                                            <t t-esc="l.product_uom.name"/>
+                                        </span>
+
+                                    </td>
+                                    <td class="en-font"
+                                        style="text-align:right;vertical-align:middle;border:1px solid black;">
+                                        <t t-esc="'{:,.2f}'.format(l.price_unit)"/>
+                                    </td>
+                                    <td class="en-font"
+                                        style="text-align:right;vertical-align:middle;border:1px solid black;">
+                                        <t t-esc="'{:,.2f}'.format(l.price_subtotal)"/>
+                                    </td>
+                                </tr>
+                                <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                    <td colspan="7"></td>
+                                    <td colspan="2" style="text-align:center;">Subtotal</td>
+                                    <td style="text-align:right;">
+                                        <t t-esc="'{:,.2f}'.format(o.amount_untaxed)"/>
+                                    </td>
+
+                                </tr>
+                                <t t-if="o.discount_amt or o.discount_amt_line">
+                                    <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                        <td colspan="4"></td>
+                                        <td colspan="2" style="text-align:left;">Discount</td>
+                                        <td style="text-align:right;">
+                                            <t t-if="o.discount_type=='global' and o.discount_method=='per'">
+                                                <t t-esc="o.discount_amount"/>%
+                                            </t>
+
+                                        </td>
+                                        <td colspan="3" style="text-align:right;">
+
+                                            <t t-if="o.discount_type=='global'"
+                                               t-esc="'{:,.2f}'.format(o.discount_amt)"/>
+                                            <t t-if="o.discount_type=='line'"
+                                               t-esc="'{:,.2f}'.format(o.discount_amt_line)"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                                <t t-if="o.design_charge">
+                                    <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                        <td colspan="4"></td>
+                                        <td colspan="2" style="text-align:left;">Design Charge</td>
+                                        <td style="text-align:right;"></td>
+                                        <td colspan="3" style="text-align:right;">
+                                            <t t-esc="'{:,.2f}'.format(o.design_charge)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="o.freight_charge">
+                                    <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                        <td colspan="4"></td>
+                                        <td colspan="2" style="text-align:left;">Freight Charge</td>
+                                        <td style="text-align:right;"></td>
+                                        <td colspan="3" style="text-align:right;">
+                                            <t t-esc="'{:,.2f}'.format(o.freight_charge)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="o.packaging_forward_charge">
+                                    <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                        <td colspan="4"></td>
+                                        <td colspan="2" style="text-align:left;">Packaging &amp; Forward</td>
+                                        <td style="text-align:right;"></td>
+                                        <td colspan="3" style="text-align:right;">
+                                            <t t-esc="'{:,.2f}'.format(o.packaging_forward_charge)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                    <td colspan="10">
+                                        <br/>
+                                    </td>
+                                </tr>
+
+                                <t t-set="grouped_tax" t-value="o.cgst_sgst_grouped_tax()"/>
+                                <tr style="border-left:1px solid black;border-right:1px solid black;"
+                                    t-foreach="grouped_tax" t-as="tax_line">
+                                    <td colspan="4"></td>
+                                    <td colspan="2" style="text-align:left;">
+                                        <t t-esc="grouped_tax[tax_line]['name']"/>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <t t-esc="grouped_tax[tax_line]['rate']"/>%
+                                    </td>
+                                    <td colspan="3" style="text-align:right;">
+                                        <t t-esc="'{:,.2f}'.format(grouped_tax[tax_line]['amount'])"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                    <td colspan="10">
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <t t-if="o.amount_round_off">
+                                    <tr style="border-left:1px solid black;border-right:1px solid black;">
+                                        <td colspan="4"></td>
+                                        <td colspan="2" style="text-align:left;">Round Off</td>
+                                        <td style="text-align:right;"></td>
+                                        <td colspan="3" style="text-align:right;">
+                                            <t t-esc="'{:,.2f}'.format(o.amount_round_off)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="border:1px solid black;">
+                                    <td colspan="5"></td>
+                                    <td colspan="2" style="text-align:right;font-weight:bold;">Grand Total</td>
+                                    <td colspan="3" style="text-align:right;font-weight:bold;">
+                                        <t t-esc="'{:,.2f}'.format(o.amount_total)"/>
+                                    </td>
+                                </tr>
+                                <tr style="border:1px solid black;">
+                                    <td colspan="2">
+                                        Amount In Words
+                                        <span style="float:right">:</span>
+                                    </td>
+                                    <td colspan="8">
+                                        <t t-esc="o.english_amt2words(float(o.amount_total),o.currency_id.currency_unit_label,o.currency_id.currency_subunit_label,2)"/>
+                                        <!--                                        <t t-esc="o.currency_id.amount_to_text(o.amount_total)"/>-->
+                                    </td>
+                                </tr>
+
+                                <tr style="border:1px solid black;">
+                                    <td colspan="2" style="vertical-align: top;">
+                                        Special Instructions
+                                        <span style="float:right">:</span>
+                                    </td>
+                                    <td colspan="8" style="vertical-align: top;">
+                                        <span t-field="o.special_instruction"/>
+                                    </td>
+                                </tr>
+                                <tr style="border:1px solid black;">
+                                    <td colspan="2" style="vertical-align: top;">
+                                        Other Instructions
+                                        <span style="float:right">:</span>
+                                    </td>
+                                    <td colspan="8" style="vertical-align: top;">
+                                        <span t-field="o.other_instruction"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="border:1px solid black;">
+                                    <td colspan="10">
+                                        <div class="row">
+                                            <div class="col-4" style="text-align:center">
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                Prepared
+                                            </div>
+                                            <div class="col-4" style="text-align:center">
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                Checked
+                                            </div>
+                                            <div class="col-4" style="text-align:center">
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                Approved
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <p style="page-break-after:always;"></p>
+                    <div class="row en-font">
+                        <div class="col-12">
+                            <table style="font-size : 12px;border-collapse:collapse;" width="100%;" cellspacing="0"
+                                   borderspacing="0" class="fixed">
+
+                                <tr>
+                                    <td style="vertical-align: top;">
+                                        <span style="text-decoration:underline;">Terms &amp; Conditions:</span>
+                                        <br/>
+                                        <br/>
+                                        <span t-field="o.notes"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="eastern_po_print">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="eastern_po_print.eastern_po_print_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

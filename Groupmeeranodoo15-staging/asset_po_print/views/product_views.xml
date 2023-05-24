@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <record id="view_product_template_asset_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.inherit.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[@name='payables']/field[@name='property_account_expense_id']" position="after">
+                    <field name="is_asset_product" readonly="1" force_save="1"/>
+                    <field name="asset_seq" attrs="{'invisible': [('is_asset_product', '==', False)]}" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

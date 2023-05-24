@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_student_tree" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Product">
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="price"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_student_form" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Product">
+                    <sheet>
+                       <notebook>
+                           <page name="note" string="info">
+                               <group>
+                                   <field name="product_id"/>
+                               </group>
+                           </page>
+                       </notebook>
+                        <notebook colspan="4">
+                            <page name="Product_info" string="product_info">
+                               <group col="4" colspan="4" name="product_info">
+                                   <field name="Product name"/>
+                                   <field name="price"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                 </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_products">
+            <field name="name">Product</field>
+            <field name="res_model">product.product</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new product</p>
+            </field>
+        </record>
+        <menuitem id="menu_store" name="Store" web_icon="om_school,static/description/icon.png"/>
+        <menuitem id="store_product" name="Product" parent="menu_store" action="action_view_products"/>
+    </data>
+</odoo>
+
+

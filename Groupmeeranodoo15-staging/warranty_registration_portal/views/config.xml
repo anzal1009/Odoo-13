@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+         <record id="sale_terms_and_coditions_res_config_settings" model="ir.ui.view">
+      <field name="name">res.config.settings.form.view</field>
+      <field name="model">res.config.settings</field>
+      <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Warranty Terms and Conditions" string="Warranty Terms and Conditions">
+
+                    <h2 class="mt32">Warranty Terms and Conditions</h2>
+                    <div class="row o_settings_container" id="o_settings_warranty_terms_and_conditions">
+                        <div class="col-12 o_setting_box" id="warranty_terms_and_conditions_terminal_setting">
+<!--                            <div class="o_setting_right_pane">-->
+<!--                                <div>-->
+<!--                                    <div class="text-muted">-->
+<!--                                        Warranty Terms and Conditions-->
+<!--                                    </div>-->
+                                    <div class="content-group" style="width:100%;height:60%;overflow:scroll;">
+                                         <field name="terms_and_conditions"/>
+                                    </div>
+
+<!--                                </div>-->
+
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

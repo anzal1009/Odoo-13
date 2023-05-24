@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="view_sale_report_excel" model="ir.ui.view">
+		<field name="name">view.sale.report.excel</field>
+		<field name="model">sale.report.excel</field>
+		<field name="arch" type="xml">
+			<form string="Genrated xls File">
+				<group>
+					<field name="file_name" invisible="1"/>
+					<field name="excel_file" readonly="1" filename="file_name"/>
+				</group>
+				 <footer>
+					<button string="Cancel" class="oe_link" special="cancel" />
+				</footer>
+			</form>
+		</field>
+ 	</record>
+
+	<record id="view_sale_report_wizard" model="ir.ui.view">
+		<field name="name">sale.report.wizard.view</field>
+		<field name="model">sale.report.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Valuation">
+
+				<group colspan="4">
+					<group>
+						<field name="start_date"/>
+					</group>
+					<group>
+						<field name="end_date"/>
+					</group>
+
+				</group>
+				<group>
+					<field name="company_id"/>
+				</group>
+
+
+				<footer>
+<!--					<button string="Print Pdf" name="print_report" type="object" class="oe_highlight"/>-->
+<!--					or-->
+					<button string="Print Excel" name="print_exl_report" type="object" class="oe_highlight"/>
+					or
+					<button string="Cancel" class="oe_link" special="cancel" />
+				</footer>
+		   </form>
+		</field>
+	</record>
+
+	<record id="action_sale_report_wizard" model="ir.actions.act_window">
+		<field name="name">Sale Report</field>
+		<field name="res_model">sale.report.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	<menuitem
+		id="menu_sale_report"
+		name="Sale Report"
+		parent="sale.menu_sale_report"
+		action="action_sale_report_wizard"
+	   />
+
+</odoo>

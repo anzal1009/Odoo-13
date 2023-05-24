@@ -1,0 +1,186 @@
+<odoo>
+    <data>
+        <record id="action_scrap_products" model="ir.actions.act_window">
+            <field name="name">Scrap</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.scrap</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('sub_cutting_id', '=', active_id)]
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    There's no Scrapped Product yet
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="sub_cutting_menu_root"
+                name="Sub Cutting"
+                web_icon="sub_cutting,static/description/sub_cutting.jpeg"
+                groups="group_sub_cutting"
+        />
+
+
+        <record id="sub_cutting_form" model="ir.ui.view">
+            <field name="name">sub.cutting.form</field>
+            <field name="model">sub.cutting</field>
+            <field name="arch" type="xml">
+                <form string="Sub Cutting">
+                    <header>
+                        <button type="object"
+                                name="action_sub_cutting"
+                                class="btn-primary"
+                                attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                                groups="stock.group_stock_user" string="Confirm"/>
+
+<!--                        <button name="scrap_product" class="btn-primary"-->
+<!--                                string="Scrap" type="object"-->
+<!--                                attrs="{'invisible': ['|', '|', ('state', 'not in', ['transferred']), ('picking_id_status', '!=', 'done'), ('process', '!=', 'scrap')]}"/>-->
+<!--                        <button name="repair_product" class="btn-primary"-->
+<!--                                string="Repair" type="object"-->
+<!--                                attrs="{'invisible': ['|', '|', ('state', 'not in', ['transferred']), ('picking_id_status', '!=', 'done'), ('process', '!=', 'repair')]}"/>-->
+
+<!--                        <button name="action_confirm" class="btn-primary"-->
+<!--                                string="Confirm" type="object"-->
+<!--                                attrs="{'invisible': ['|', ('state', 'not in', ['transferred']), ('process', 'in', ('scrap', 'repair'))]}"/>-->
+<!--                        <button name="action_confirm" class="btn-primary"-->
+<!--                                string="Confirm" type="object"-->
+<!--                                attrs="{'invisible': [('state', 'not in', ['scrap', 'repair'])]}"/>-->
+                        <button name="action_cancel"
+                                string="Cancel" type="object"
+                                attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="%(action_scrap_products)d"
+                                    string="Scrap" type="action" icon="fa-exchange" states="done"/>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="sub_cutting_header">
+                            <group>
+                                <field name="product_id"/>
+                                <field name="tracking" invisible="1"/>
+                                <field name="quantity"/>
+                                <field name="lot_id"
+                                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                                               attrs="{'required': [('tracking', '!=', 'none')], 'invisible': [('tracking', '=', 'none')]}"/>
+                                <field name="operation"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="location_id" options="{'no_create': True}"/>
+
+                                <field name="package_id" groups="stock.group_tracking_lot" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                <field name="user_id" domain="[('share', '=', False)]" widget="many2one_avatar_user"/>
+                                <field name="company_id" options="{'no_create': True}"
+                                       groups="base.group_multi_company"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Components" name="sub_cutting_products" attrs="{'invisible': [('operation', '=', 'cutting')]}">
+                                <field
+                                        name="sub_cutting_products_ids"
+                                        mode="tree"
+                                        attrs="{'readonly': [('state', 'in', ('done','cancel'))]}"
+                                >
+                                    <tree string="Products" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="tracking" invisible="1"/>
+                                        <field name="product_reference" readonly="1"/>
+                                        <field name="lot_id"
+                                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                                               attrs="{'required': [('tracking', '!=', 'none')], 'invisible': [('tracking', '=', 'none')]}"/>
+                                        <field name="package_id" groups="stock.group_tracking_lot" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                        <field name="location_id" options="{'no_create': True}"/>
+                                        <field name="quantity" />
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="By - Products" name="sub_cutting_by_products">
+                                <field
+                                        name="sub_cutting_by_products_ids"
+                                        mode="tree"
+                                        attrs="{'readonly': [('state', 'in', ('done','cancel'))]}"
+                                >
+                                    <tree string="By - Products" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="tracking" invisible="1"/>
+                                        <field name="product_reference" readonly="1"/>
+                                        <field name="lot_id"
+                                               context="{'default_product_id': product_id, 'default_company_id': company_id}"
+                                               attrs="{'required': [('tracking', '!=', 'none')], 'invisible': [('tracking', '=', 'none')]}"/>
+                                        <field name="package_id" groups="stock.group_tracking_lot" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                        <field name="location_id" options="{'no_create': True}"/>
+                                        <field name="quantity"/>
+                                        <field name="scrap"/>
+                                        <field name="scrap_location_id" attrs="{'invisible': [('scrap', '=', False)]}"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sub_cutting_tree_view" model="ir.ui.view">
+            <field name="name">sub.cutting.tree</field>
+            <field name="model">sub.cutting</field>
+            <field name="arch" type="xml">
+                <tree string="Sub Cutting">
+                    <field name="name" readonly="1" decoration-bf="1"/>
+                    <field name="date" widget="date"/>
+                    <field name="product_id"/>
+                    <field name="location_id" options="{'no_create': True}"/>
+                    <field name="quantity"/>
+                    <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                    <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sub_cutting_view_search" model="ir.ui.view">
+            <field name="name">sub.cutting.select</field>
+            <field name="model">sub.cutting</field>
+            <field name="arch" type="xml">
+                <search string="Search Sub Cutting">
+                    <field name="product_id"/>
+                    <field name="location_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="sub_cutting_form_action" model="ir.actions.act_window">
+            <field name="name">Sub Cutting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sub.cutting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sub_cutting_tree_view"/>
+            <field name="search_view_id" ref="sub_cutting_view_search"/>
+        </record>
+
+        <menuitem action="sub_cutting_form_action" id="menu_sub_cutting_form_action"
+                  parent="sub_cutting_menu_root" sequence="0" groups="stock.group_stock_manager,stock.group_stock_user"/>
+    </data>
+</odoo>

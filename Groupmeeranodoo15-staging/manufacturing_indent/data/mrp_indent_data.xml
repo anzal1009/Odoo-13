@@ -1,0 +1,12 @@
+<odoo>
+    <data noupdate="1">
+
+        <record id="sequence_mrp_indent" model="ir.sequence">
+            <field name="name">MRP Indent Sequence</field>
+            <field name="code">mrp.indent</field>
+            <field name="prefix">MI/%(year)s/</field>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <template id="apartment_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+<!--                <t t-call="web.external_layout">-->
+                <!--                <t t-call="apartment_management.report_enquiry_receipt">-->
+                <!--                    <h1>aaaa</h1>-->
+
+                <style>
+                    table,
+                    th,
+                    td {
+                    border: 1px solid black;
+                    }
+                </style>
+                <body>
+
+                    <table style="width: 1000px;" align="center" cellspacing="0">
+                        <tr>
+                            <th colspan="14" style="border: 1px solid black;" height="60"><u>SALES INVOICE </u> </th>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th colspan="14" align="center" style="border: 1px solid black;" height="60">APARTMENT SALES-->
+<!--                                INVOICE-->
+<!--                            </th>-->
+<!--                        </tr>-->
+
+                        <tr>
+                            <th rowspan="3" colspan="2" align="left" style="border-right : 1px solid white;">
+                                 <p style="text-align:center;padding-top:10px;">
+<!--                                     <img src='/apartment_management/static/src/img/abcd.jpg' style="max-height: 45px;"/>-->
+<!--                                 </p>-->
+<!--                                    <img t-if="not doc.name.photo"-->
+<!--                                         t-att-src="'/web/static/src/img/abcd.jpg'" height="120"-->
+<!--                                         border="0" width="120"/></p>-->
+<!--                                     <img t-if="not doc.name.photo"-->
+<!--                                         t-att-src="'/web/static/src/img/placeholder.png'" height="120"-->
+<!--                                         border="1" width="120"/>-->
+<!--                                     <img t-att-src="'/apartment_management/static/src/img/ooo.png'" alt="logo" height="120" border="0" width="120" />-->
+<!--                                    <img class="logo"  src="'/apartment_management/static/src/img/ooo.png'" height="120"-->
+<!--                                        border="0" width="120" alt="logo"/>-->
+<!--                                 <img class="o_image" alt="Avatar" t-att-src=' "/base/apartment_management/static/img/ooo.png"'/>-->
+<!--                                     <img src="/apartment_management/static/src/img/logo.png"/>-->
+                                     <img t-attf-src="data:image/jpg;base64,{{ res_company.logo }}" align="left" height="120" width="120"  />
+
+<!--                                     <img t-if="res_company.logo" t-att-src="data:image/jpg;base64,{{res_company.logo}}" height="120px" border="0" width="120px"/>-->
+<!--                                     <img t-attf-src="'data:image/*;base64,{{res_company.logo}}'" height="120px" border="0" width="120px"/>-->
+<!--                                     <img src='/web/binary/company_logo' class="float-right" style="max-height: 65px; margin-top:20px;"-->
+<!--                     alt="Logo"/>-->
+<!--                                     <div id="company_logo" style="text-align:center;"><img t-att-src="'data:image/png;base64,'+ widget.pos.company.logo" height="150px" width="150px"/></div>-->
+
+<!--                                 <img t-if="res.company.logo" t-att-src="'data:image/png;base64,%s' %res.company.logo"/>-->
+
+<!--                                      <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" height="120" border="0" width="120" />-->
+
+
+
+
+                                 </p>
+                            </th>
+
+                            <th rowspan="3" colspan="10" style="border-left: 1px solid white;" align="left">
+                                <p style="text-align:left;padding-left:190px;">
+                                    <b>
+                                        <br>ABC GROUP</br>
+                                    </b>
+                                    <br>Anna Nagar</br>
+                                    <br>BPJ Road</br>
+                                    <br>Chennai,546 623</br>
+                                    <br>India</br>
+                                    <br>ph:0554 2811111,2222111</br>
+                                </p>
+
+                            </th>
+                        </tr>
+
+
+                    </table>
+
+                    <table style="width: 1000px;" align="center" cellspacing="0">
+                        <tr>
+                            <td colspan="9" style="border: 1px solid black; border-top:1px solid white;" >Invoice no:</td>
+                            <td colspan="10" style="border: 1px solid black;border-top:1px solid white;">GSTIN:</td>
+                            <td colspan="9" style="border: 1px solid black;border-top:1px solid white;" >Invoice Date:</td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="14" style="border-bottom: 1px solid white;" align="left">Customer details</td>
+                            <td colspan="14" style="border-bottom: 1px solid white;" align="left">Building details</td>
+                        </tr>
+
+                            <tr>
+                            <td rowspan="2" colspan="7" style="border-top: 1px solid white;border-right:1px solid white">
+<!--                                <p><u><b>Customer Details:</b></u></p>-->
+                                <p style="text-align:right;">
+                                    <strong>Name :</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Age:</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Gender:</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Phone:</strong>
+                                </p>
+                            </td>
+                            <td rowspan="2" colspan="7" style="border-top: 1px solid white; border-left:1px solid white;">
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.name"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.age"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.gender"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.phone"/>
+                            </td>
+                                <td rowspan="2" colspan="7" style="border-top: 1px solid white;border-right:1px solid white">
+                                <p style="text-align:right;">
+                                    <strong>Project Name :</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Place:</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Flat name:</strong>
+                                </p>
+                                <p style="text-align:right;">
+                                    <strong>Unit Type:</strong>
+                                </p>
+                            </td>
+                            <td rowspan="2" colspan="7" style="border-top: 1px solid white; border-left:1px solid white;">
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.projname"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.dist"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.flatname"/>
+                                <p style="text-align:left;padding-left:10px;"
+                                   t-field="doc.utype"/>
+                            </td>
+
+                            </tr>
+                    </table>
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
+                    <table style="width: 1000px;" align="center" cellspacing="0" height="150">
+                        <tr>
+                            <td colspan="1">Sno</td>
+                            <td colspan="3">Flat Name</td>
+                            <td colspan="2">Unit</td>
+                            <td colspan="2">Sales Person</td>
+                            <td colspan="2">GST</td>
+                            <td colspan="2">CGST</td>
+                            <td colspan="2">Amount</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">01</td>
+                            <td colspan="3"><p style="text-align:left;padding-left:10px;" t-field="doc.flatname"/></td>
+                            <td colspan="2"><p style="text-align:left;padding-left:10px;" t-field="doc.utype"/></td>
+                            <td colspan="2"><p style="text-align:left;padding-left:10px;" t-field="doc.sperson"/></td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2">0.00</td>
+                            <td colspan="2"><p style="text-align:left;padding-left:10px;" t-field="doc.price"/></td>
+                        </tr>
+                           <tr>
+                            <td colspan="12" align="right">Total</td>
+                            <td colspan="2"><p style="text-align:left;padding-left:10px;" t-field="doc.price"/></td>
+                            </tr>
+
+
+
+
+                    </table>
+
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <table style="width: 1000px;" align="center" cellspacing="0" height="100">
+                        <tr>
+                            <td align="center">***Best Wishes***</td>
+                        </tr>
+                    </table>
+
+
+
+
+
+                </body>
+
+
+<!--                 </t>-->
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

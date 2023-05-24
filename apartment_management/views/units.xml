@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_unit_tree" model="ir.ui.view">
+            <field name="name">apartment.unit.tree</field>
+            <field name="model">apartment.unit</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Unit Type">
+                    <field name="name"/>
+                    <field name="dist"/>
+<!--                    <field name="block"/>-->
+<!--                    <field name="floors"/>-->
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_unit_form" model="ir.ui.view">
+            <field name="name">apartment.unit.form</field>
+            <field name="model">apartment.unit</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Unit Type">
+                    <sheet>
+                        <h1>Unit Registration</h1>
+                        <br></br>
+                        <br></br>
+                        <div class="sub">
+                            <group col="4" colspan="4" name="customer_detail">
+                                <field name="name" placeholder="2--BHK,3--BHK..."/>
+                                <field name="dist"/>
+<!--                                <field name="block"/>-->
+<!--                                <field name="floors"/>-->
+                            </group>
+                            <group>
+                                <field name="desc"/>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         <record model="ir.actions.act_window" id="action_view_unit">
+            <field name="name">Units</field>
+            <field name="res_model">apartment.unit</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new Units</p>
+            </field>
+        </record>
+<!--          <menuitem id="configure_menu" name="Cofiguration" parent="apartment_customer" />-->
+        <menuitem id="configure_menu4" name="Units" parent="configure_menu" action="action_view_unit" sequence="40"/>
+    </data>
+</odoo>
+
+

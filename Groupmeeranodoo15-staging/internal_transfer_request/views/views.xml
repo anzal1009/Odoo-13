@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <record id="stock_picking_order_form" model="ir.ui.view">
+            <field name="name">stock form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group/field[@name='location_id']" position="after">
+                    <field name="security_confirm" invisible="1"/>
+                    <field name="security_validate" invisible="1"/>
+                    <field name="tmp_destination_location" invisible="1"/>
+
+                    <field name="tmp_source_location" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//sheet/group/group/field[@name='origin']" position="after">
+                    <field name="virtual_location" attrs="{'invisible': [('security_confirm', '=', False)]}"/>
+                </xpath>
+
+                <button name="action_cancel" position="attributes">
+                    <attribute name="states">draft,send_to_logistic_approval,
+                        stock_in_transit,validate_confirm
+                    </attribute>
+                </button>
+
+                <button name="button_validate" position="before">
+                    <button name="confirm_button" type="object"
+                            string="Send Request"
+                            groups="internal_transfer_request.group_inventory_confirm_approval"
+                            attrs="{'invisible':['|',('security_confirm','=',False),('state','in',('send_to_logistic_approval','stock_in_transit','validate_confirm','done'))]}"
+                            class="oe_highlight"/>
+
+                    <button name="stock_transfer" type="object" states='send_to_logistic_approval'
+                            string="Stock Transfer"
+                            attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','in',('draft','waiting','assigned','confirmed','stock_in_transit','validate_confirm','done'))]}"
+                            groups="internal_transfer_request.group_stock_transfer_approval"
+                            class="oe_highlight"/>
+
+
+                    <button name="confirm_validation" type="object" states='stock_in_transit'
+                            string="Confirm"
+                            attrs="{'invisible':['|',('picking_type_code','!=','internal'),('state','in',('draft','waiting','assigned','confirmed','send_to_logistic_approval','validate_confirm','done'))]}"
+                            groups="internal_transfer_request.group_inventory_confirm_validate_approval"
+                            class="oe_highlight"/>
+                </button>
+
+                <button name="button_validate" position="attributes">
+                    <attribute name="states">validate_confirm</attribute>
+
+                    <attribute name="attrs">{'invisible':[('security_validate', '=', True)]}</attribute>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="act_mrp_production_indent_view" model="ir.actions.act_window">
+            <field name="name">Indent Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.indent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('origin', '=', active_id)]
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    There's no indent created yet.
+                </p>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_view_inherited" model="ir.ui.view">
+            <field name="name">mrp.production.form.inherited</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_confirm']" position="after">
+                    <button name="mrp_indent_confirm" attrs="{'invisible': [('indent_state', '!=', 'issued')]}"
+                            string="Confirm the Indent" type="object" class="oe_highlight" data-hotkey="v"/>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']/button[@name='action_see_move_scrap']" position="after">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(act_mrp_production_indent_view)d"
+                            icon="fa-bars" attrs="{'invisible':[('indent_state','=','draft')]}">
+                        <field string="Indent" name="mrp_indent_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+
+                <xpath expr="//group/group/field[@name='company_id']" position="after">
+                    <field name="indent_state" readonly="True"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

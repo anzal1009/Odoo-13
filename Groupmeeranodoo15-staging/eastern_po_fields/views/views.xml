@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Form view -->
+    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.inherit.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group/field[@name='currency_id']" position="after">
+                <field name="bill_to_partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}" placeholder="Name, TIN, Email, or Reference"/>
+            </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']/group" position="inside">
+                <group string="Other Info" name="other_document">
+                    <field name="freight"/>
+                    <field name="document"/>
+                    <field name="advance"/>
+                    <field name="other_document1"/>
+                    <field name="other_document2"/>
+                </group>
+
+                <group string="Special Charges" name="special_charges">
+                    <field name="design_charge"/>
+                    <field name="freight_charge"/>
+                    <field name="packaging_forward_charge"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']" position="inside">
+                <group>
+                    <field name="kind_attention" nolabel="1" placeholder="Kind Attention ..."/>
+                </group>
+                <group>
+                    <field name="special_instruction" nolabel="1" placeholder="Define your special instructions ..."/>
+                </group>
+                <group>
+                    <field name="other_instruction" nolabel="1" placeholder="Define your other instructions ..."/>
+                </group>
+            </xpath>
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]/field[@name='tax_totals_json']" position="before">
+                <field name="design_charge_amt" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="freight_charge_amt" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="packaging_forward_charge_amt" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="pan"/>
+                <field name="cin"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
